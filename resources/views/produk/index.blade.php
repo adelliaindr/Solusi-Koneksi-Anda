@@ -12,7 +12,7 @@
 <!-- KONTEN DAFTAR PRODUK -->
 <div class="container mb-5">
     <div class="row">
-        @forelse($products ?? [] as $item)
+        @forelse($produk ?? [] as $item)
         <!-- Jika data produk sudah diinput oleh admin -->
         <div class="col-md-4 mb-4">
             <a href="{{ url('/produk/' . $item->id) }}" class="text-decoration-none">
@@ -46,7 +46,7 @@
                 <p class="text-muted col-lg-6 mx-auto mb-4">
                     Data produk dan layanan ini bersifat dinamis. Admin perusahaan dapat segera menambahkan, memperbarui, atau menghapus daftar layanan melalui halaman admin panel.
                 </p>
-                <a href="{{ url('/admin/products') }}" class="btn btn-primary-custom px-4 py-2">
+                <a href="{{ url('/admin/produk') }}" class="btn btn-primary-custom px-4 py-2">
                     <i class="bi bi-gear-fill me-1"></i> Buka Halaman Admin (Kelola Produk)
                 </a>
             </div>

@@ -34,7 +34,11 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/artikel') }}">Artikel</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/galeri') }}">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
-                    <li class="nav-item ms-lg-3"><a class="btn btn-outline-light btn-sm mt-1" href="{{ url('/admin/products') }}"><i class="bi bi-lock-fill"></i> Admin</a></li>
+                    <li class="nav-item ms-lg-3">
+                        <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
+                            <i class="bi bi-lock-fill"></i> Admin
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

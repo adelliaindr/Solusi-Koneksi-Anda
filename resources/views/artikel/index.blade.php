@@ -71,7 +71,7 @@
                     <p class="text-muted col-lg-6 mx-auto mb-4">
                         Data artikel bersifat dinamis dan dikelola melalui halaman admin. Silakan isi artikel melalui panel admin terlebih dahulu.
                     </p>
-                    <a href="{{ url('/admin/products') }}" class="btn btn-primary px-4 py-2">
+                    <a href="{{ url('/admin/produk') }}" class="btn btn-primary px-4 py-2">
                         <i class="bi bi-gear-fill me-1"></i> Ke Halaman Admin
                     </a>
                 </div>

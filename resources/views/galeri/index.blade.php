@@ -76,7 +76,7 @@
                     <p class="text-muted col-lg-6 mx-auto mb-4">
                         Foto dokumentasi kegiatan dan fasilitas bersifat dinamis. Admin dapat mengunggah foto baru melalui panel admin.
                     </p>
-                    <a href="{{ url('/admin/products') }}" class="btn btn-primary px-4 py-2">
+                    <a href="{{ url('/admin/produck') }}" class="btn btn-primary px-4 py-2">
                         <i class="bi bi-gear-fill me-1"></i> Ke Halaman Admin
                     </a>
                 </div>

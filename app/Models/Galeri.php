@@ -8,7 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Galeri extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'kategori',
+        'deskripsi',
+        'image',
+    ];
 
     // Relasi ke Komentar Galeri
     public function komentars()
