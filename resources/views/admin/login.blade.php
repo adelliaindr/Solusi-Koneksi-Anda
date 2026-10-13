@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 <div class="container py-5">
-    <div class="row justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="row justify-content-center align-items-center">
         <div class="col-md-5">
-            <div class="card shadow-lg border-0 rounded-4 p-4 p-lg-5">
+            <div class="card shadow-lg border-0 rounded-4 p-4 p-lg-5 bg-white">
                 <div class="text-center mb-4">
                     <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
                         <i class="bi bi-shield-lock-fill fs-3"></i>

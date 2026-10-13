@@ -40,13 +40,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('galeri.index') }}" class="nav-link text-dark rounded-3 py-2 px-3 fw-semibold {{ Request::is('admin/galeri*') ? 'active' : '' }}">
-                            <i class="bi bi-images me-2"></i> Galeri
+                        <a href="{{ route('artikel.index') }}" class="nav-link text-dark rounded-3 py-2 px-3 fw-semibold {{ Request::is('admin/artikel*') ? 'active' : '' }}">
+                            <i class="bi bi-newspaper me-2"></i> Artikel
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('artikel.index') }}" class="nav-link text-dark rounded-3 py-2 px-3 fw-semibold {{ Request::is('admin/artikel*') ? 'active' : '' }}">
-                            <i class="bi bi-newspaper me-2"></i> Artikel
+                        <a href="{{ route('galeri.index') }}" class="nav-link text-dark rounded-3 py-2 px-3 fw-semibold {{ Request::is('admin/galeri*') ? 'active' : '' }}">
+                            <i class="bi bi-images me-2"></i> Galeri
                         </a>
                     </li>
                     <li class="nav-item">

@@ -46,6 +46,7 @@
                             <td>{{ Str::limit($kontak->subject ?? $kontak->subjek, 30) }}</td>
                             <td class="text-muted small">{{ $kontak->created_at->format('d M Y, H:i') }}</td>
                             <td class="text-center">
+                                <!-- Sesuaikan nama route jika di web.php menggunakan prefix admin -->
                                 <a href="{{ route('kontak.show', $kontak->id) }}" class="btn btn-sm btn-info text-white me-1" title="Baca Pesan">
                                     <i class="bi bi-envelope-open-fill"></i>
                                 </a>

@@ -61,7 +61,7 @@
                     <form action="{{ route('galeri.like', $galeris->id) }}" method="POST" class="m-0">
                         @csrf
                         <button type="submit" class="btn btn-link p-0 text-decoration-none text-dark d-flex align-items-center gap-2 fw-semibold fs-5">
-                            <i class="bi bi-heart-fill text-danger fs-3"></i>
+                            <i class="bi bi-heart-fill fs-3 {{ $galeris->likes->count() > 0 ? 'text-danger' : 'text-secondary' }}"></i>
                             {{ $galeris->likes->count() }} Suka
                         </button>
                     </form>
@@ -89,13 +89,19 @@
                 <div class="p-3 border-top">
                     <form action="{{ route('galeri.comment', $galeris->id) }}" method="POST">
                         @csrf
-                        <input type="text" name="nama_pengirim" class="form-control mb-2" placeholder="Nama Kamu.." required>
+                        <input type="text" name="nama_pengirim" class="form-control mb-2" placeholder="Nama Kamu.." value="{{ old('nama_pengirim') }}" required>
                         <div class="input-group">
-                            <input type="text" name="isi_komentar" class="form-control" placeholder="Tulis komentar.." required>
+                            <input type="text" name="isi_komentar" class="form-control" placeholder="Tulis komentar.." value="{{ old('isi_komentar') }}" required>
                             <button type="submit" class="btn btn-primary" aria-label="Kirim komentar">
                                 <i class="bi bi-send"></i>
                             </button>
                         </div>
+                        @error('nama_pengirim')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
+                        @error('isi_komentar')
+                            <div class="text-danger small mt-1">{{ $message }}</div>
+                        @enderror
                     </form>
                 </div>
 

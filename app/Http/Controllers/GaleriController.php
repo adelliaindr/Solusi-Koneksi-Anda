@@ -49,17 +49,18 @@ class GaleriController extends Controller
     
     // Fungsi untuk Kirim Komentar per Foto Galeri
 
-    public function comment($id, Request $request)
+    public function comment(Request $request, $id)
     {
-        $request->validate([
-            'nama_pengirim' => 'required|string|max:100',
-            'isi_komentar' => 'required|string|max:1000',
+        $validated = $request->validate([
+            'nama_pengirim' => 'required|string|max:100', // Sesuaikan dengan nama input di form
+            'isi_komentar'  => 'required|string|max:1000',
         ]);
 
-        Komentar::create([
-            'galeri_id' => $id,
-            'nama_pengirim' => $request->nama_pengirim,
-            'isi_komentar' => $request->isi_komentar,
+        $galeri = Galeri::findOrFail($id);
+
+        $galeri->komentars()->create([
+            'nama_pengirim' => $validated['nama_pengirim'],
+            'isi_komentar'  => $validated['isi_komentar'],
         ]);
 
         return back()->with('success', 'Komentar Anda berhasil terkirim pada foto ini!');

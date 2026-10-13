@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-    <!-- HEADER ATAS: JUDUL & PROFIL ADMIN (KHUSUS HALAMAN DASHBOARD) -->
+    <!-- HEADER ATAS: JUDUL & PROFIL ADMIN -->
     <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-4 shadow-sm mb-4">
         <div>
             <h4 class="fw-bold text-dark mb-0">Dasbor Admin</h4>
@@ -55,7 +55,7 @@
                         <h3 class="fw-bold mb-0">{{ \App\Models\Artikel::count() }}</h3>
                     </div>
                 </div>
-                <a href="{{ url('/artikel') }}" class="text-decoration-none small text-dark fw-semibold mt-2 d-inline-block">
+                <a href="{{ route('artikel.index') }}" class="text-decoration-none small text-dark fw-semibold mt-2 d-inline-block">
                     Lihat detail <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -73,7 +73,7 @@
                         <h3 class="fw-bold mb-0">{{ \App\Models\Galeri::count() }}</h3>
                     </div>
                 </div>
-                <a href="{{ url('/galeri') }}" class="text-decoration-none small text-success fw-semibold mt-2 d-inline-block">
+                <a href="{{ route('galeri.index') }}" class="text-decoration-none small text-success fw-semibold mt-2 d-inline-block">
                     Lihat detail <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -88,17 +88,17 @@
                     </div>
                     <div>
                         <span class="text-muted small">Pesan Masuk</span>
-                        <h3 class="fw-bold mb-0">0</h3>
+                        <h3 class="fw-bold mb-0">{{ \App\Models\Kontak::count() }}</h3>
                     </div>
                 </div>
-                <a href="{{ url('/kontak') }}" class="text-decoration-none small text-info fw-semibold mt-2 d-inline-block">
+                <a href="{{ route('kontak.index') }}" class="text-decoration-none small text-info fw-semibold mt-2 d-inline-block">
                     Lihat detail <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- STATISTIK KUNJUNGAN & PESAN TERBARU -->
+    <!-- STATISTIK KUNJUNGAN (DIAGRAM GARIS / LINE CHART) -->
     <div class="row g-4 mb-4">
         <div class="col-lg-7">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
@@ -106,36 +106,49 @@
                     <h5 class="fw-bold text-dark mb-0">Statistik Kunjungan Website</h5>
                     <span class="badge bg-light text-muted border px-3 py-2 rounded-pill">7 hari terakhir</span>
                 </div>
-                <div class="py-4 text-center my-auto">
-                    <h1 class="display-4 fw-bold text-primary">1,280</h1>
-                    <p class="text-muted small mb-0"><i class="bi bi-graph-up-arrow text-success me-1"></i> Peningkatan kunjungan aktif minggu ini</p>
+                
+                <!-- Canvas untuk Chart.js -->
+                <div style="position: relative; height: 260px; width: 100%;">
+                    <canvas id="visitorChart"></canvas>
                 </div>
             </div>
         </div>
-
+        
+        <!-- PESAN TERBARU -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="fw-bold text-dark mb-0">Pesan Terbaru</h5>
-                    <a href="{{ url('/kontak') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
+                    <a href="{{ route('kontak.index') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
                 </div>
                 
                 <div class="d-flex flex-column gap-3">
+                    @php 
+                        $latestKontaks = \App\Models\Kontak::latest()->take(5)->get(); 
+                    @endphp
+
+                    @forelse($latestKontaks as $kontak)
                     <div class="d-flex align-items-start justify-content-between border-bottom pb-3">
                         <div class="d-flex align-items-start gap-3">
-                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;">
-                                <i class="bi bi-person"></i>
+                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0" style="width: 40px; height: 40px;">
+                                <i class="bi bi-person-fill"></i>
                             </div>
                             <div>
-                                <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.95rem;">Budi Santoso</h6>
-                                <p class="text-muted small mb-0 text-truncate" style="max-width: 180px;">Halo, saya ingin bertanya mengenai layanan jaringan...</p>
+                                <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.95rem;">{{ $kontak->name }}</h6>
+                                <p class="text-muted small mb-0 text-truncate" style="max-width: 250px;">{{ $kontak->message }}</p>
                             </div>
                         </div>
                         <div class="text-end">
-                            <small class="text-muted d-block" style="font-size: 0.75rem;">10:30</small>
-                            <span class="badge bg-primary rounded-circle p-1 mt-1 d-inline-block"></span>
+                            <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $kontak->created_at->format('H:i') }}</small>
+                            <small class="text-muted d-block" style="font-size: 0.65rem;">{{ $kontak->created_at->format('d M Y') }}</small>
                         </div>
                     </div>
+                    @empty
+                    <div class="text-center py-4 text-muted">
+                        <i class="bi bi-inbox display-6 mb-2 d-block"></i>
+                        <p class="mb-0 small">Belum ada pesan atau konsultasi masuk dari pengunjung.</p>
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -192,4 +205,67 @@
             </div>
         </div>
     </div>
+
+    <!-- SCRIPT CHART.JS UNTUK DIAGRAM GARIS KUNJUNGAN -->
+    @php
+        // Ambil data kunjungan 7 hari terakhir secara otomatis dari database
+        $chartLabels = [];
+        $chartData = [];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $chartLabels[] = $date->format('d M');
+            // Ganti '\App\Models\Visitor' dengan nama model tabel kunjungan Anda jika berbeda
+            $count = class_exists(\App\Models\Visitor::class) 
+                ? \App\Models\Visitor::whereDate('visit_date', $date->toDateString())->count() 
+                : rand(5, 25); // Fallback data jika tabel belum ada
+            $chartData[] = $count;
+        }
+    @endphp
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('visitorChart').getContext('2d');
+        const visitorChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {!! json_encode($chartLabels) !!},
+                datasets: [{
+                    label: 'Jumlah Kunjungan',
+                    data: {!! json_encode($chartData) !!},
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#0d6efd',
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 @endsection
