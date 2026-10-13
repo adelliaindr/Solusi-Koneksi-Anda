@@ -20,12 +20,28 @@
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
     <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Nama Produk <span class="text-danger">*</span></label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan nama produk..." value="{{ old('name') }}" required>
-            @error('name')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+        
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label class="form-label fw-semibold">Nama Produk <span class="text-danger">*</span></label>
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Masukkan nama produk..." value="{{ old('name') }}" required>
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label fw-semibold">Kategori Layanan <span class="text-danger">*</span></label>
+                <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
+                    <option value="" disabled selected>-- Pilih Kategori --</option>
+                    <option value="infrastruktur jaringan" {{ old('kategori') == 'infrastruktur jaringan' ? 'selected' : '' }}>Infrastruktur Jaringan</option>
+                    <option value="telekomunikasi & konektivitas" {{ old('kategori') == 'telekomunikasi & konektivitas' ? 'selected' : '' }}>Telekomunikasi & Konektivitas</option>
+                    <option value="solusi teknologi informasi" {{ old('kategori') == 'solusi teknologi informasi' ? 'selected' : '' }}>Solusi Teknologi Informasi</option>
+                </select>
+                @error('kategori')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="mb-3">

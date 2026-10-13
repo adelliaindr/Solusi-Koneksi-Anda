@@ -17,7 +17,7 @@ class GaleriController extends Controller
             $query->where('kategori', $request->kategori);
         }
 
-        $galeris = $query->paginate(8);
+        $galeris = $query->paginate(12);
 
         return view('galeri.index', compact('galeris'));
     }
@@ -25,9 +25,9 @@ class GaleriController extends Controller
     // Menampilkan detail 1 foto galeri
     public function show($id)
     {
-        $galeri = Galeri::with(['komentars' => function($q) {
-           $q->latest();      
-        }, 'likes'])->findOrFail($id);
+        $galeris = Galeri::with('komentars')->findOrFail($id);
+
+        return view('galeri.show', compact('galeris'));
     }
 
     // Fitur Like per Foto Galeri

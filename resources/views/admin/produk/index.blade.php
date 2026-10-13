@@ -35,6 +35,7 @@
                         <th class="py-3 ps-4" style="width: 60px;">No</th>
                         <th class="py-3">Gambar</th>
                         <th class="py-3">Nama Produk</th>
+                        <th class="py-3">Kategori</th>
                         <th class="py-3">Deskripsi Singkat</th>
                         <th class="py-3 text-center" style="width: 220px;">Aksi</th>
                     </tr>
@@ -51,7 +52,10 @@
                                 @endif
                             </td>
                             <td class="fw-bold text-dark">{{ $produk->name }}</td>
-                            <td class="text-muted">{{ Str::limit($produk->description, 50) }}</td>
+                            <td>
+                                <span class="badge bg-light text-primary border text-capitalize px-2 py-1">{{ $produk->kategori ?? 'Umum' }}</span>
+                            </td>
+                            <td class="text-muted">{{ Str::limit($produk->description, 40) }}</td>
                             <td class="text-center">
                                 <a href="{{ route('produk.show', $produk->id) }}" class="btn btn-sm btn-info text-white me-1" title="Lihat">
                                     <i class="bi bi-eye-fill"></i>
@@ -70,7 +74,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="text-center py-4 text-muted">Belum ada data produk.</td>
+                            <td colspan="6" class="text-center py-4 text-muted">Belum ada data produk.</td>
                         </tr>
                     @endforelse
                 </tbody>

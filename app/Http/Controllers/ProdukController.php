@@ -7,10 +7,18 @@ use App\Models\Produk;
 
 class ProdukController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $produks = Produk::latest()->paginate(6);
-        return view('produk.index', compact('produks'));
+        $query = Produk::latest();
+
+        // Filter berdasarkan kategori jika dipilih di menu navbar atas
+        if ($request->has('kategori') && $request->kategori != '') {
+            $query->where('kategori', $request->kategori);
+        }
+
+        $produk = $query->paginate(9);
+
+        return view('produk.index', compact('produk'));
     }
     public function show($id)
     {

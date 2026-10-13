@@ -2,11 +2,13 @@
 
 @section('content')
 <!-- HERO SECTION -->
-<section class="hero-section text-white py-5 position-relative" style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center; background-size: cover; min-height: 250px;">
-    <div class="container py-3">
-        <!-- Breadcrumb / Navigasi Atas -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-3">
+<section
+    class="text-white text-center d-flex align-items-center justify-content-center mb-5"
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+
+    <div class="container py-5">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+            <ol class="breadcrumb mb-3" style="--bs-breadcrumb-divider-color: rgba(255,255,255,.6);">
                 <li class="breadcrumb-item">
                     <a href="{{ url('/') }}" class="text-white text-decoration-none fw-semibold">
                         <i class="bi bi-house-door-fill me-1"></i>Beranda
@@ -16,9 +18,10 @@
             </ol>
         </nav>
 
-        <!-- Judul & Sub-judul Hero -->
-        <h1 class="display-5 fw-bold mb-2">Artikel & Berita</h1>
-        <p class="lead mb-0">Informasi terbaru seputar kegiatan, prestasi, dan informasi penting dari PT Solusi Koneksi Anda.</p>
+        <h1 class="display-4 fw-bold mb-3">Artikel & Berita</h1>
+        <p class="lead col-lg-8 mx-auto mb-0">
+            Informasi terbaru seputar kegiatan, prestasi, dan informasi penting dari PT Solusi Koneksi Anda.
+        </p>
     </div>
 </section>
 

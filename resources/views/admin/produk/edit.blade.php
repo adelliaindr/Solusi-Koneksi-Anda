@@ -22,12 +22,27 @@
         @csrf
         @method('PUT')
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Nama Produk <span class="text-danger">*</span></label>
-            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $produk->name) }}" required>
-            @error('name')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+        <div class="row">
+            <div class="col-md-8 mb-3">
+                <label class="form-label fw-semibold">Nama Produk <span class="text-danger">*</span></label>
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $produk->name) }}" required>
+                @error('name')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label fw-semibold">Kategori Layanan <span class="text-danger">*</span></label>
+                <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
+                    <option value="" disabled>-- Pilih Kategori --</option>
+                    <option value="infrastruktur jaringan" {{ old('kategori', $produk->kategori) == 'infrastruktur jaringan' ? 'selected' : '' }}>Infrastruktur Jaringan</option>
+                    <option value="telekomunikasi & konektivitas" {{ old('kategori', $produk->kategori) == 'telekomunikasi & konektivitas' ? 'selected' : '' }}>Telekomunikasi & Konektivitas</option>
+                    <option value="solusi teknologi informasi" {{ old('kategori', $produk->kategori) == 'solusi teknologi informasi' ? 'selected' : '' }}>Solusi Teknologi Informasi</option>
+                </select>
+                @error('kategori')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
         </div>
 
         <div class="mb-3">

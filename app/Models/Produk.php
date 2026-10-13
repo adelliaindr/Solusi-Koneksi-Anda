@@ -12,6 +12,7 @@ class Produk extends Model
     // Tambahkan baris ini untuk mengizinkan mass assignment
     protected $fillable = [
         'name',
+        'kategori',
         'description',
         'image',
     ];

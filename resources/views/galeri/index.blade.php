@@ -2,11 +2,13 @@
 
 @section('content')
 <!-- HERO SECTION -->
-<section class="hero-section text-white py-5 position-relative" style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center; background-size: cover; min-height: 250px;">
-    <div class="container py-3">
-        <!-- Breadcrumb Navigasi Kiri Atas -->
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-2">
+<section
+    class="text-white text-center d-flex align-items-center justify-content-center mb-5"
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+
+    <div class="container py-5">
+        <nav aria-label="breadcrumb" class="d-flex justify-content-center">
+            <ol class="breadcrumb mb-3" style="--bs-breadcrumb-divider-color: rgba(255,255,255,.6);">
                 <li class="breadcrumb-item">
                     <a href="{{ url('/') }}" class="text-white text-decoration-none fw-semibold">
                         <i class="bi bi-house-door-fill me-1"></i>Beranda
@@ -16,9 +18,10 @@
             </ol>
         </nav>
 
-        <!-- Judul & Sub-judul Hero -->
-        <h1 class="display-5 fw-bold mb-2">Galeri Foto</h1>
-        <p class="lead mb-0">Dokumentasi kegiatan, fasilitas, jaringan infrastruktur, dan momen berharga di PT Solusi Koneksi Anda.</p>
+        <h1 class="display-4 fw-bold mb-3">Galeri Foto</h1>
+        <p class="lead col-lg-8 mx-auto mb-0">
+            Dokumentasi kegiatan, fasilitas, jaringan infrastruktur, dan momen berharga di PT Solusi Koneksi Anda.
+        </p>
     </div>
 </section>
 
@@ -51,21 +54,24 @@
         <div class="row">
             @forelse($galeris ?? [] as $item)
             <div class="col-md-3 col-sm-6 mb-4">
-                <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                    @if($item->image)
-                        <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" alt="{{ $item->title }}" style="height: 200px; object-fit: cover;">
-                    @else
-                        <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
-                            <i class="bi bi-camera fs-1"></i>
-                        </div>
-                    @endif
-                    <div class="card-body p-3 text-center">
-                        <h6 class="fw-semibold text-dark mb-1">{{ $item->title }}</h6>
-                        @if(isset($item->kategori))
-                            <span class="badge bg-secondary text-capitalize">{{ $item->kategori }}</span>
+                <!-- Dibungkus a href agar bisa diklik menuju halaman show -->
+                <a href="{{ url('/galeri/' . $item->id) }}" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden card-hover">
+                        @if($item->image)
+                            <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" alt="{{ $item->title }}" style="height: 200px; object-fit: cover;">
+                        @else
+                            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="bi bi-camera fs-1"></i>
+                            </div>
                         @endif
+                        <div class="card-body p-3 text-center">
+                            <h6 class="fw-semibold text-dark mb-1">{{ $item->title }}</h6>
+                            @if(isset($item->kategori))
+                                <span class="badge bg-secondary text-capitalize">{{ $item->kategori }}</span>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             @empty
             <!-- Placeholder Jika Foto Masih Kosong / Belum Diisi Admin -->
@@ -76,7 +82,7 @@
                     <p class="text-muted col-lg-6 mx-auto mb-4">
                         Foto dokumentasi kegiatan dan fasilitas bersifat dinamis. Admin dapat mengunggah foto baru melalui panel admin.
                     </p>
-                    <a href="{{ url('/admin/produck') }}" class="btn btn-primary px-4 py-2">
+                    <a href="{{ url('/admin/galeri') }}" class="btn btn-primary px-4 py-2">
                         <i class="bi bi-gear-fill me-1"></i> Ke Halaman Admin
                     </a>
                 </div>

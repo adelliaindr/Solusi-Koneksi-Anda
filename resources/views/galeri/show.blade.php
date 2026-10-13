@@ -24,68 +24,81 @@
     @endif
 
     <!-- DETAIL FOTO GALERI -->
-    <div class="bg-white p-4 p-lg-5 rounded-4 shadow-sm border mb-5 text-center">
-        <h2 class="fw-bold text-primary-custom mb-3">{{ $galeri->title }}</h2>
-        @if(isset($galeri->kategori))
-            <span class="badge bg-secondary mb-4 text-capitalize px-3 py-2">Kategori: {{ $galeri->kategori }}</span>
-        @endif
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="row g-0">
 
-        @if($galeri->image)
-            <div class="mb-4">
-                <img src="{{ asset('storage/' . $galeri->image) }}" class="img-fluid rounded-3 shadow-sm border" alt="{{ $galeri->title }}" style="max-height: 500px; width: 100%; object-fit: contain; background: #000;">
-            </div>
-        @endif
-
-        <hr class="my-4">
-
-        <!-- TOMBOL LIKE FOTO -->
-        <div class="d-flex align-items-center justify-content-center gap-4">
-            <form action="{{ route('galeri.like', $galeri->id) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-outline-danger btn-lg rounded-pill px-4">
-                    <i class="bi bi-heart-fill me-1"></i> Suka Foto Ini ({{ $galeri->likes->count() }})
-                </button>
-            </form>
-            <span class="text-muted fs-5"><i class="bi bi-chat-left-text me-1"></i> {{ $galeri->komentars->count() }} Komentar</span>
-        </div>
-    </div>
-
-    <!-- BAGIAN KOMENTAR FOTO -->
-    <div class="row">
-        <!-- Form Tulis Komentar -->
-        <div class="col-lg-6 mb-4">
-            <div class="bg-white p-4 rounded-4 shadow-sm border">
-                <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-pencil-square me-2"></i>Tulis Komentar untuk Foto Ini</h4>
-                <form action="{{ route('galeri.comment', $galeri->id) }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Nama Anda</label>
-                        <input type="text" name="nama_pengirim" class="form-control" placeholder="Masukkan nama..." required>
+            <!-- KOLOM KIRI: FOTO -->
+            <div class="col-lg-8 bg-dark d-flex align-items-center justify-content-center">
+                @if($galeris->image)
+                    <img src="{{ asset('storage/' . $galeris->image) }}"
+                         class="img-fluid"
+                         alt="{{ $galeris->title }}"
+                         style="max-height: 85vh; object-fit: contain;">
+                @else
+                    <div class="text-center text-secondary py-5">
+                        <i class="bi bi-image display-1 d-block mb-2"></i>
+                        <p class="mb-0">Tidak ada foto</p>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Komentar</label>
-                        <textarea name="isi_komentar" class="form-control" rows="4" placeholder="Tuliskan tanggapan Anda..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary px-4"><i class="bi bi-send me-1"></i> Kirim Komentar</button>
-                </form>
+                @endif
             </div>
-        </div>
 
-        <!-- Daftar Komentar Pengunjung -->
-        <div class="col-lg-6">
-            <div class="bg-white p-4 rounded-4 shadow-sm border">
-                <h4 class="fw-bold mb-3 text-dark"><i class="bi bi-chat-dots me-2"></i>Komentar Pengunjung</h4>
-                @forelse($galeri->komentars as $komentar)
-                    <div class="border-bottom py-3">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <h6 class="fw-bold m-0 text-primary-custom"><i class="bi bi-person-circle me-1"></i>{{ $komentar->nama_pengirim }}</h6>
-                            <small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small>
+            <!-- KOLOM KANAN: INFO, KOMENTAR, FORM -->
+            <div class="col-lg-4 bg-white d-flex flex-column">
+
+                <!-- Judul & Tanggal -->
+                <div class="p-4 border-bottom">
+                    <h4 class="fw-bold mb-2 text-break">{{ $galeris->title }}</h4>
+                    <div class="text-muted d-flex flex-wrap align-items-center gap-2">
+                        <span><i class="bi bi-calendar3 me-1"></i>{{ $galeris->created_at->translatedFormat('j F Y') }}</span>
+                        @if(!empty($galeris->kategori))
+                            <span class="badge bg-secondary text-capitalize">{{ $galeris->kategori }}</span>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- Suka & Jumlah Komentar -->
+                <div class="px-4 py-3 bg-light border-bottom d-flex align-items-center justify-content-between">
+                    <form action="{{ route('galeri.like', $galeris->id) }}" method="POST" class="m-0">
+                        @csrf
+                        <button type="submit" class="btn btn-link p-0 text-decoration-none text-dark d-flex align-items-center gap-2 fw-semibold fs-5">
+                            <i class="bi bi-heart-fill text-danger fs-3"></i>
+                            {{ $galeris->likes->count() }} Suka
+                        </button>
+                    </form>
+                    <span class="text-muted">
+                        <i class="bi bi-chat-left-text me-1"></i>{{ $galeris->komentars->count() }} Komentar
+                    </span>
+                </div>
+
+                <!-- Daftar Komentar -->
+                <div class="flex-grow-1 overflow-auto px-4 py-2" style="max-height: 420px;">
+                    @forelse($galeris->komentars as $komentar)
+                        <div class="border-bottom py-3">
+                            <div class="d-flex align-items-baseline gap-2 mb-1">
+                                <span class="fw-bold">{{ $komentar->nama_pengirim }}</span>
+                                <small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small>
+                            </div>
+                            <p class="text-muted mb-0 text-break">{{ $komentar->isi_komentar }}</p>
                         </div>
-                        <p class="text-muted small mb-0">{{ $komentar->isi_komentar }}</p>
-                    </div>
-                @empty
-                    <p class="text-muted text-center py-4 mb-0">Belum ada komentar untuk foto ini.</p>
-                @endforelse
+                    @empty
+                        <p class="text-muted text-center py-5 mb-0">Belum ada komentar untuk foto ini.</p>
+                    @endforelse
+                </div>
+
+                <!-- Form Komentar -->
+                <div class="p-3 border-top">
+                    <form action="{{ route('galeri.comment', $galeris->id) }}" method="POST">
+                        @csrf
+                        <input type="text" name="nama_pengirim" class="form-control mb-2" placeholder="Nama Kamu.." required>
+                        <div class="input-group">
+                            <input type="text" name="isi_komentar" class="form-control" placeholder="Tulis komentar.." required>
+                            <button type="submit" class="btn btn-primary" aria-label="Kirim komentar">
+                                <i class="bi bi-send"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>

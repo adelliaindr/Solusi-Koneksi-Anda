@@ -1,27 +1,109 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- 1. HERO SECTION (Background Foto Gedung Kantor) -->
-<section class="hero-section text-white text-center d-flex align-items-center position-relative" style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80') no-repeat center center; background-size: cover; min-height: 450px;">
+
+<!-- HERO SECTION -->
+<section
+    class="text-white text-center d-flex align-items-center justify-content-center"
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+
     <div class="container py-5">
-        <h1 class="display-4 fw-bold mb-3">PT Solusi Koneksi Anda</h1>
-        <p class="lead col-lg-8 mx-auto mb-4">Menghubungkan masa depan bisnis Anda dengan infrastruktur jaringan, telekomunikasi, dan solusi IT terdepan yang handal.</p>
-        <a href="{{ url('/profil') }}" class="btn btn-primary btn-lg px-4 shadow">Pelajari Lebih Lanjut</a>
+        <h1 class="display-4 fw-bold mb-3">
+            PT Solusi Koneksi Anda
+        </h1>
+
+        <p class="lead col-lg-8 mx-auto mb-4">
+            Menghubungkan masa depan bisnis Anda dengan infrastruktur
+            jaringan, telekomunikasi, dan solusi IT terdepan yang handal.
+        </p>
+
+        <a href="{{ url('/profil') }}"
+           class="btn btn-primary btn-lg px-4 shadow">
+            Pelajari Lebih Lanjut
+        </a>
     </div>
+
 </section>
 
 <!-- 2. TENTANG KAMI / MENGENAL LEBIH DEKAT -->
 <section class="py-5 bg-white">
-    <div class="container text-center py-3">
-        <span class="text-primary fw-semibold text-uppercase tracking-wide">Tentang PT Solusi Koneksi Anda</span>
-        <h2 class="fw-bold mb-4 mt-2">Mengenal Lebih Dekat PT Solusi Koneksi Anda</h2>
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <p class="text-muted fs-5 lh-base">
-                    PT Solusi Koneksi Anda adalah perusahaan penyedia layanan teknologi informasi dan jaringan telekomunikasi terpercaya. Kami berdedikasi tinggi untuk membantu berbagai skala usaha dalam memperluas jangkauan operasional melalui sistem koneksi yang cepat, stabil, aman, dan efisien sesuai kebutuhan era digital modern.
+    <div class="container py-4">
+
+        <!-- Baris 1: Teks + Info Kantor -->
+        <div class="row align-items-center g-5 mb-5">
+            <div class="col-lg-7">
+                <span class="badge bg-primary mb-3 text-uppercase">Tentang Kami</span>
+                <h2 class="fw-bold mb-3">Mengenal Lebih Dekat PT Solusi Koneksi Anda</h2>
+                <p class="text-muted lh-lg mb-3">
+                    PT Solusi Koneksi Anda adalah perusahaan penyedia infrastruktur jaringan telekomunikasi, solusi teknologi informasi, dan layanan konektivitas digital. Kami berkomitmen mempercepat transformasi digital bagi dunia usaha di Indonesia melalui layanan yang handal, aman, dan berstandar tinggi.
                 </p>
+                <p class="text-muted lh-lg mb-4">
+                    Didukung tenaga ahli berpengalaman di bidang teknik jaringan, manajemen sistem IT, dan pelayanan pelanggan profesional.
+                </p>
+                <a href="{{ url('/profil') }}" class="btn btn-primary px-4">
+                    Lihat Profil Lengkap <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm bg-light rounded-4">
+                    <div class="card-body p-4 p-lg-5 text-center">
+                        <i class="bi bi-building-fill-gear text-primary display-3 d-block mb-3"></i>
+                        <h5 class="fw-bold mb-2">Kantor Pusat</h5>
+                        <p class="text-muted mb-0 lh-base">
+                            Jl. Raya Pajajaran No. 88 F<br>
+                            Kota Bogor, Jawa Barat 16153
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Baris 2: Visi, Misi, Komitmen -->
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <div class="bg-primary text-white rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px;">
+                            <i class="bi bi-eye-fill fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Visi</h5>
+                        <p class="text-muted mb-0">
+                            Menjadi penyedia layanan koneksi dan infrastruktur IT terdepan dan terpercaya di Indonesia.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <div class="bg-primary text-white rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px;">
+                            <i class="bi bi-rocket-takeoff-fill fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Misi</h5>
+                        <p class="text-muted mb-0">
+                            Memberikan layanan jaringan yang stabil dan aman, inovasi teknologi, serta pelayanan profesional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm rounded-4">
+                    <div class="card-body p-4">
+                        <div class="bg-primary text-white rounded-3 d-flex align-items-center justify-content-center mb-3" style="width: 56px; height: 56px;">
+                            <i class="bi bi-shield-check fs-3"></i>
+                        </div>
+                        <h5 class="fw-bold mb-2">Komitmen</h5>
+                        <p class="text-muted mb-0">
+                            Standar K3, protokol operasional yang ketat, dan kemitraan strategis demi hasil terbaik.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
 
@@ -29,7 +111,7 @@
 <section class="py-5 bg-light border-top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold m-0 mx-auto text-center">Produk atau Layanan PT Solusi Koneksi Anda</h3>
+            <h3 class="fw-bold m-0 mx-auto text-center">Produk atau Layanan</h3>
             <a href="{{ url('/produk') }}" class="btn btn-outline-primary btn-sm text-nowrap">Lihat Semua <i class="bi bi-arrow-right"></i></a>
         </div>
         
@@ -74,7 +156,7 @@
 <section class="py-5 bg-white border-top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold m-0 mx-auto text-center">Galeri Kegiatan PT Solusi Koneksi Anda</h3>
+            <h3 class="fw-bold m-0 mx-auto text-center">Galeri Kegiatan</h3>
             <a href="{{ url('/galeri') }}" class="btn btn-outline-primary btn-sm text-nowrap">Lihat Semua <i class="bi bi-arrow-right"></i></a>
         </div>
 
@@ -111,7 +193,7 @@
 <section class="py-5 bg-light border-top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="fw-bold m-0 mx-auto text-center">Artikel Terkini PT Solusi Koneksi Anda</h3>
+            <h3 class="fw-bold m-0 mx-auto text-center">Artikel Terkini</h3>
             <a href="{{ url('/artikel') }}" class="btn btn-outline-primary btn-sm text-nowrap">Lihat Semua <i class="bi bi-arrow-right"></i></a>
         </div>
 

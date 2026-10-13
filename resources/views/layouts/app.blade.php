@@ -18,42 +18,40 @@
 <body class="bg-light">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top shadow-sm py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <a class="navbar-brand fw-bold text-white fs-5" href="{{ url('/') }}">
                 <i class="bi bi-hdd-network-fill me-2"></i>PT Solusi Koneksi Anda
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-2">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-lg-auto gap-2 align-items-lg-center">
+                    <li class="nav-item "><a class="nav-link" href="{{ url('/') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/profil') }}">Profil Perusahaan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/produk') }}">Produk / Layanan</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/artikel') }}">Artikel</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/galeri') }}">Galeri</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
-                    <li class="nav-item ms-lg-3">
-                        <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
-                            <i class="bi bi-lock-fill"></i> Admin
-                        </a>
-                    </li>
                 </ul>
+                <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
+                    <i class="bi bi-lock-fill"></i> Admin
+                </a>
             </div>
         </div>
     </nav>
 
     <!-- Content Section -->
-    <main class="py-4">
+    <main class="py-0">
         @yield('content')
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-4 mt-5">
+    <footer class="bg-primary-custom text-white text-center py-4">
         <div class="container">
             <p class="mb-1">&copy; 2026 PT Solusi Koneksi Anda. All rights reserved.</p>
-            <small class="text-muted">Didukung oleh PT Edukasi4id • Jl. Raya Pajajaran No. 88 F Kota Bogor</small>
+            <small class="text-white">Didukung oleh PT Edukasi4id • Jl. Raya Pajajaran No. 88 F Kota Bogor</small>
         </div>
     </footer>
 
