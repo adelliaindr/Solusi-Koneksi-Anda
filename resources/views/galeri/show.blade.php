@@ -49,7 +49,9 @@
                 <div class="p-4 border-bottom">
                     <h4 class="fw-bold mb-2 text-break">{{ $galeris->title }}</h4>
                     <div class="text-muted d-flex flex-wrap align-items-center gap-2">
-                        <span><i class="bi bi-calendar3 me-1"></i>{{ $galeris->created_at->translatedFormat('j F Y') }}</span>
+                        <div class="mb-3 text-muted small">
+                            <i class="bi bi-calendar3 me-1"></i> Diunggah pada: {{ $galeris->created_at->format('d M Y, H:i') }} WIB
+                        </div>
                         @if(!empty($galeris->kategori))
                             <span class="badge bg-secondary text-capitalize">{{ $galeris->kategori }}</span>
                         @endif

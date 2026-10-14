@@ -2,17 +2,22 @@
 
 @section('admin_content')
 <!-- BREADCRUMB -->
-<nav aria-label="breadcrumb" class="mb-3">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none">Dasbor</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('produk.index') }}" class="text-decoration-none">Produk</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb mb-0 bg-transparent p-0">
+        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none text-muted"><i class="bi bi-house-door-fill me-1"></i>Dasbor</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('produk.index') }}" class="text-decoration-none text-muted">Produk</a></li>
+        <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Tambah Baru</li>
     </ol>
 </nav>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold text-dark mb-0">Tambah Produk Baru</h3>
-    <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary btn-sm">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 bg-white p-4 rounded-4 shadow-sm border-0 mb-4">
+    <div>
+        <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+            <i class="bi bi-plus-circle-fill text-primary me-2"></i>Tambah Produk Baru
+        </h3>
+        <p class="text-muted small mb-0">Masukkan informasi detail produk atau layanan baru perusahaan.</p>
+    </div>
+    <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-semibold">
         <i class="bi bi-arrow-left me-1"></i> Kembali
     </a>
 </div>

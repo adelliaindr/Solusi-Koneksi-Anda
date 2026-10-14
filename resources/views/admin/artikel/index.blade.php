@@ -2,20 +2,22 @@
 
 @section('admin_content')
 <!-- BREADCRUMB -->
-<nav aria-label="breadcrumb" class="mb-3">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none">Dasbor</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Artikel</li>
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb mb-0 bg-transparent p-0">
+        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none text-muted"><i class="bi bi-house-door-fill me-1"></i>Dasbor</a></li>
+        <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Artikel</li>
     </ol>
 </nav>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 bg-white p-4 rounded-4 shadow-sm border-0 mb-4">
     <div>
-        <h3 class="fw-bold text-dark mb-0">Kelola Artikel</h3>
+        <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+            <i class="bi bi-newspaper text-primary me-2"></i>Kelola Artikel
+        </h3>
         <p class="text-muted small mb-0">Daftar berita, pengumuman, dan artikel informatif perusahaan.</p>
     </div>
-    <a href="{{ route('artikel.create') }}" class="btn btn-primary fw-semibold">
-        <i class="bi bi-plus-lg me-1"></i> Tambah Artikel Baru
+    <a href="{{ route('artikel.create') }}" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm fw-semibold d-inline-flex align-items-center">
+        <i class="bi bi-plus-lg me-2"></i> Tambah Artikel Baru
     </a>
 </div>
 

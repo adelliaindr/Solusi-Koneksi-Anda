@@ -2,21 +2,26 @@
 
 @section('admin_content')
 <!-- BREADCRUMB -->
-<nav aria-label="breadcrumb" class="mb-3">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none">Dasbor</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('produk.index') }}" class="text-decoration-none">Produk</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Lihat</li>
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb mb-0 bg-transparent p-0">
+        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none text-muted"><i class="bi bi-house-door-fill me-1"></i>Dasbor</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('produk.index') }}" class="text-decoration-none text-muted">Produk</a></li>
+        <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Detail</li>
     </ol>
 </nav>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="fw-bold text-dark mb-0">Detail Produk</h3>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 bg-white p-4 rounded-4 shadow-sm border-0 mb-4">
     <div>
-        <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-warning text-white btn-sm me-1">
+        <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+            <i class="bi bi-eye-fill text-primary me-2"></i>Detail Produk
+        </h3>
+        <p class="text-muted small mb-0">Tinjau informasi lengkap dari produk yang dipilih.</p>
+    </div>
+    <div class="d-flex align-items-center gap-2">
+        <a href="{{ route('produk.edit', $produk->id) }}" class="btn btn-warning text-white btn-sm px-3 py-2 rounded-3 fw-semibold shadow-sm">
             <i class="bi bi-pencil-square me-1"></i> Edit Produk
         </a>
-        <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary btn-sm">
+        <a href="{{ route('produk.index') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-semibold">
             <i class="bi bi-arrow-left me-1"></i> Kembali
         </a>
     </div>

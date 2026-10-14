@@ -20,9 +20,10 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top shadow-sm py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white fs-5" href="{{ url('/') }}">
-                <i class="bi bi-hdd-network-fill me-2"></i>PT Solusi Koneksi Anda
-            </a>
+            <a class="navbar-brand fw-bold text-white fs-5 d-flex align-items-center" href="{{ url('/') }}">
+                <!-- Tambahkan tag img di sini -->
+                 <img src="{{ asset('images/logo.jpg') }}" alt="Logo PT Solusi Koneksi Anda" class="me-2" style="height: 35px; width: auto; object-fit: contain;">
+                </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,7 +37,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
                 </ul>
                 <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
-                    <i class="bi bi-lock-fill"></i> Admin
+                    Masuk
                 </a>
             </div>
         </div>

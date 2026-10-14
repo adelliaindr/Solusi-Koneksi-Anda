@@ -2,16 +2,18 @@
 
 @section('admin_content')
 <!-- BREADCRUMB -->
-<nav aria-label="breadcrumb" class="mb-3">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none">Dasbor</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Kontak Masuk</li>
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb mb-0 bg-transparent p-0">
+        <li class="breadcrumb-item"><a href="{{ url('/admin/dashboard') }}" class="text-decoration-none text-muted"><i class="bi bi-house-door-fill me-1"></i>Dasbor</a></li>
+        <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">Kontak Masuk</li>
     </ol>
 </nav>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 bg-white p-4 rounded-4 shadow-sm border-0 mb-4">
     <div>
-        <h3 class="fw-bold text-dark mb-0">Pesan Masuk Kontak</h3>
+        <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
+            <i class="bi bi-chat-dots-fill text-primary me-2"></i>Pesan Masuk Kontak
+        </h3>
         <p class="text-muted small mb-0">Daftar pesan dan pertanyaan yang dikirimkan oleh pengunjung melalui website.</p>
     </div>
 </div>

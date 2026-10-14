@@ -56,18 +56,26 @@
             <div class="col-md-3 col-sm-6 mb-4">
                 <!-- Dibungkus a href agar bisa diklik menuju halaman show -->
                 <a href="{{ url('/galeri/' . $item->id) }}" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden card-hover">
+                    <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden card-hover">
                         @if($item->image)
-                            <img src="{{ asset('storage/' . $item->image) }}" class="card-img-top" alt="{{ $item->title }}" style="height: 200px; object-fit: cover;">
+                            <img src="{{ filter_var($item->image, FILTER_VALIDATE_URL) ? $item->image : asset('storage/' . $item->image) }}" class="card-img-top object-fit-cover" alt="{{ $item->title }}" style="height: 200px;">
                         @else
                             <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 200px;">
                                 <i class="bi bi-camera fs-1"></i>
                             </div>
                         @endif
-                        <div class="card-body p-3 text-center">
-                            <h6 class="fw-semibold text-dark mb-1">{{ $item->title }}</h6>
+                        
+                        <div class="card-body p-3 d-flex flex-column">
+                            <small class="text-muted d-block mb-1" style="font-size: 0.8rem;">
+                                <i class="bi bi-clock me-1"></i> {{ $item->created_at->translatedFormat('d F Y') }}
+                            </small>
+                            <h6 class="fw-bold text-dark mb-2">{{ Str::limit($item->title, 35) }}</h6>
+                            <p class="card-text text-muted small flex-grow-1 mb-2">{{ Str::limit($item->description ?? '', 60) }}</p>
+                            
                             @if(isset($item->kategori))
-                                <span class="badge bg-secondary text-capitalize">{{ $item->kategori }}</span>
+                                <div>
+                                    <span class="badge bg-secondary text-capitalize">{{ $item->kategori }}</span>
+                                </div>
                             @endif
                         </div>
                     </div>
