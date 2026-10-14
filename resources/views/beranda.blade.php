@@ -5,7 +5,7 @@
 <!-- 1. HERO SECTION -->
 <section
     class="text-white text-center d-flex align-items-center justify-content-center"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+    style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 75vh;">
 
     <div class="container py-5">
         <h1 class="display-4 fw-bold mb-3">
@@ -21,7 +21,7 @@
             <a href="{{ url('/profil') }}" class="btn btn-primary btn-lg px-4 shadow rounded-3 fw-semibold">
                 Pelajari Lebih Lanjut
             </a>
-            <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-outline-light btn-lg px-4 rounded-3 fw-semibold">
+            <a href="https://wa.me/6289516430243" target="_blank" class="btn btn-outline-light btn-lg px-4 rounded-3 fw-semibold">
                 <i class="bi bi-whatsapp me-2"></i>Konsultasi Gratis
             </a>
         </div>
@@ -342,16 +342,24 @@
         <h5 class="fw-bold text-muted mb-4 text-uppercase tracking-wide">Dipercaya Oleh Berbagai Perusahaan & Instansi</h5>
         <div class="row align-items-center justify-content-center g-4 opacity-75">
             <div class="col-6 col-md-2">
-                <div class="p-3 bg-white rounded-3 shadow-sm border fw-bold text-secondary">KLIEN A</div>
+                <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
+                    <img src="{{ asset('images/logo_klien_a.jpg') }}" alt="Logo Klien A" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                </div>
             </div>
             <div class="col-6 col-md-2">
-                <div class="p-3 bg-white rounded-3 shadow-sm border fw-bold text-secondary">KLIEN B</div>
+                <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
+                    <img src="{{ asset('images/logo_klien_b.jpg') }}" alt="Logo Klien B" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                </div>
             </div>
             <div class="col-6 col-md-2">
-                <div class="p-3 bg-white rounded-3 shadow-sm border fw-bold text-secondary">INSTANSI C</div>
+                <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
+                    <img src="{{ asset('images/logo_klien_a.jpg') }}" alt="Logo Klien C" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                </div>
             </div>
             <div class="col-6 col-md-2">
-                <div class="p-3 bg-white rounded-3 shadow-sm border fw-bold text-secondary">MITRA D</div>
+                <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
+                    <img src="{{ asset('images/logo_klien_a.jpg') }}" alt="Logo Klien D" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                </div>
             </div>
         </div>
     </div>
@@ -362,7 +370,7 @@
     <div class="container py-3">
         <h3 class="fw-bold mb-3">Siap Mengembangkan Jaringan Bisnis Anda?</h3>
         <p class="lead col-lg-8 mx-auto mb-4">Konsultasikan kebutuhan infrastruktur telekomunikasi dan jaringan perusahaan Anda dengan tim konsultan ahli kami sekarang.</p>
-        <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-light text-primary btn-lg px-4 rounded-3 fw-bold shadow">
+        <a href="https://wa.me/6289516430243" target="_blank" class="btn btn-light text-primary btn-lg px-4 rounded-3 fw-bold shadow">
             <i class="bi bi-whatsapp me-2"></i> Hubungi Tim Sales Via WhatsApp
         </a>
     </div>

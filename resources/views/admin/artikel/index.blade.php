@@ -55,7 +55,7 @@
                             </td>
                             <td class="fw-bold text-dark">{{ Str::limit($artikel->title, 45) }}</td>
                             <td><span class="badge bg-light text-primary border px-3 py-2 rounded-pill">{{ $artikel->kategori ?? 'Umum' }}</span></td>
-                            <td class="text-muted small">{{ $artikel->created_at->format('d M Y') }}</td>
+                            <td class="text-muted small">{{ ($artikel->tanggal_upload ?? $artikel->created_at)->format('d M Y') }}</td>
                             <td class="text-center">
                                 <a href="{{ route('artikel.show', $artikel->id) }}" class="btn btn-sm btn-info text-white me-1" title="Lihat">
                                     <i class="bi bi-eye-fill"></i>

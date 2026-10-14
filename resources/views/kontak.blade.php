@@ -4,7 +4,7 @@
 <!-- HERO SECTION -->
 <section
     class="text-white text-center d-flex align-items-center justify-content-center mb-5"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 90vh;">
 
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">

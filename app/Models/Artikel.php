@@ -14,7 +14,12 @@ class Artikel extends Model
     protected $fillable = [
         'title',
         'kategori',
+        'tanggal_upload',
         'content',
         'image',
     ];
+
+    protected $casts = [
+        'tanggal_upload' => 'date',
+        ];
 }

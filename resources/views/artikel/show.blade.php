@@ -27,7 +27,7 @@
             </span>
 
             <div class="text-muted small">
-                <i class="bi bi-calendar3 me-1"></i> {{ $artikels->created_at ? $artikels->created_at->format('d M Y, H:i') . ' WIB' : date('d M Y') }}
+                <i class="bi bi-calendar3 me-1"></i> {{ ($item->tanggal_upload ?? $item->created_at ?? now())->format('d M Y') }}
             </div>
         </div>
         

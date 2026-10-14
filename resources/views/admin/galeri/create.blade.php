@@ -59,14 +59,6 @@
             @enderror
         </div>
 
-        <div class="mb-4">
-            <label class="form-label fw-semibold">Keterangan / Deskripsi Foto</label>
-            <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="5" placeholder="Tuliskan catatan singkat mengenai dokumentasi foto ini...">{{ old('deskripsi', $galeri->deskripsi ?? '') }}</textarea>
-            @error('deskripsi')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-
         <div class="d-flex justify-content-end gap-2">
             <a href="{{ route('galeri.index') }}" class="btn btn-light border">Batal</a>
             <button type="submit" class="btn btn-primary fw-semibold px-4">

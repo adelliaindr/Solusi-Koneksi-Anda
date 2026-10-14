@@ -3,10 +3,11 @@
 @section('content')
 
 @php
-    // Kategori yang sedang dipilih (kosong = Semua)
-    $aktif = strtolower(trim((string) request('kategori', '')));
+    // Samakan format teks: huruf kecil, "&" jadi "dan", spasi ganda dirapikan
+    $normalisasi = fn ($teks) => preg_replace('/\s+/', ' ', str_replace('&', 'dan', strtolower(trim((string) $teks))));
 
-    // Daftar tab kategori: nilai di URL => [label, ikon]
+    $aktif = $normalisasi(request('kategori', ''));
+
     $tabs = [
         'berita'        => ['Berita', 'bi-newspaper'],
         'teknologi'     => ['Teknologi', 'bi-cpu'],
@@ -14,23 +15,17 @@
         'pengumuman'    => ['Pengumuman', 'bi-megaphone'],
     ];
 
-    // Ambil daftar artikel, lalu saring sesuai kategori yang dipilih
-    $sumber = $artikels ?? collect();
-    $daftar = $sumber instanceof \Illuminate\Pagination\AbstractPaginator
-        ? $sumber->getCollection()
-        : collect($sumber);
+    $daftar = collect($artikels ?? []);
 
     if ($aktif !== '') {
-        $daftar = $daftar->filter(function ($a) use ($aktif) {
-            return strtolower(trim((string) ($a->category ?? $a->kategori ?? ''))) === $aktif;
-        })->values();
+        $daftar = $daftar->filter(fn ($a) => $normalisasi($a->kategori) === $aktif)->values();
     }
 @endphp
 
 <!-- HERO SECTION -->
 <section
     class="text-white text-center d-flex align-items-center justify-content-center"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 79vh;">
 
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -44,7 +39,7 @@
             </ol>
         </nav>
 
-        <h1 class="display-4 fw-bold mb-3">Artikel & Berita</h1>
+        <h1 class="display-4 fw-bold mb-3">Artikel Informasi</h1>
         <p class="lead col-lg-8 mx-auto mb-0">
             Informasi terbaru seputar kegiatan, perkembangan teknologi, tips, dan pengumuman penting dari PT Solusi Koneksi Anda.
         </p>
@@ -95,7 +90,7 @@
                         <!-- Baris Kategori & Tanggal Rilis -->
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             @php
-                                $kat = strtolower(trim((string) ($item->category ?? $item->kategori ?? 'berita')));
+                                $kat = $normalisasi($item->kategori ?? 'berita');
                                 $badgeClass = match($kat) {
                                     'teknologi'     => 'bg-primary bg-opacity-10 text-primary',
                                     'tips dan trik' => 'bg-success bg-opacity-10 text-success',
@@ -108,7 +103,7 @@
                             </span>
 
                             <div class="text-muted small">
-                                <i class="bi bi-calendar3 me-1"></i> {{ $item->created_at ? $item->created_at->format('d M Y') : date('d M Y') }}
+                                <i class="bi bi-calendar3 me-1"></i> {{ ($item->tanggal_upload ?? $item->created_at ?? now())->format('d M Y') }}
                             </div>
                         </div>
 
@@ -142,23 +137,10 @@
                             Data artikel bersifat dinamis dan dikelola melalui halaman admin. Silakan isi artikel melalui panel admin terlebih dahulu.
                         @endif
                     </p>
-                    <a href="{{ url('/artikel') }}" class="btn btn-outline-primary px-4 py-2 me-2">
-                        Lihat Semua Kategori
-                    </a>
-                    <a href="{{ url('/admin/artikel') }}" class="btn btn-primary px-4 py-2">
-                        <i class="bi bi-gear-fill me-1"></i> Ke Halaman Admin
-                    </a>
                 </div>
             </div>
             @endforelse
         </div>
-
-        <!-- Pagination jika data artikel banyak -->
-        @if(isset($artikels) && method_exists($artikels, 'links'))
-        <div class="d-flex justify-content-center mt-4">
-            {{ $artikels->appends(request()->query())->links() }}
-        </div>
-        @endif
     </div>
 </section>
 @endsection

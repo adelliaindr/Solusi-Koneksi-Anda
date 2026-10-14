@@ -23,10 +23,10 @@
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse border-end p-3">
             <div class="position-sticky pt-3">
                 <div class="text-center mb-4 pb-3 border-bottom">
-                    <h5 class="fw-bold mb-0" style="color: #0a3663;">
-                        <i class="bi bi-hdd-network-fill me-2"></i>PT Solusi Koneksi Anda
-                    </h5>
-                </div>
+    <div class="d-flex align-items-center justify-content-center gap-2">
+        <img src="{{ asset('images/logobiru.jpg') }}" alt="Logo PT Solusi Koneksi Anda" style="height: 32px; width: auto; object-fit: contain;">
+    </div>
+</div>
 
                 <ul class="nav flex-column gap-1">
                     <li class="nav-item">

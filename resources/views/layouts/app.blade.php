@@ -29,12 +29,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-lg-auto gap-2 align-items-lg-center">
-                    <li class="nav-item "><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item "><a class="nav-link" href="{{ url('/') }}">Beranda</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/profil') }}">Profil Perusahaan</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/produk') }}">Produk / Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/produk') }}">Produk</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/artikel') }}">Artikel</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ url('/galeri') }}">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak</a></li>
                 </ul>
                 <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
                     Masuk
@@ -52,7 +52,7 @@
     <footer class="bg-primary-custom text-white text-center py-4">
         <div class="container">
             <p class="mb-1">&copy; 2026 PT Solusi Koneksi Anda. All rights reserved.</p>
-            <small class="text-white">Didukung oleh PT Edukasi4id • Jl. Raya Pajajaran No. 88 F Kota Bogor</small>
+            <small class="text-white-50">Didukung oleh PT Edukasi4id • Jl. Raya Pajajaran No. 88 F Kota Bogor</small>
         </div>
     </footer>
 

@@ -5,7 +5,7 @@
 <!-- 1. HERO SECTION -->
 <section
     class="text-white text-center d-flex align-items-center justify-content-center"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+    style="background: linear-gradient(rgba(10, 54, 99, 0.85), rgba(10, 54, 99, 0.85)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 95vh;">
 
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -199,27 +199,46 @@
         </div>
 
         <div class="row g-4 justify-content-center">
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
-                    <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                        <i class="bi bi-person-badge text-primary display-4"></i>
-                    </div>
-                    <h5 class="fw-bold mb-1">Direktur Utama</h5>
-                    <p class="text-muted small mb-2">Pimpinan & Strategi Korporat</p>
-                    <p class="text-muted small mb-0">Berpengalaman lebih dari 15 tahun di bidang infrastruktur jaringan telekomunikasi nasional.</p>
-                </div>
+    <!-- Kartu Direktur Utama -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+            <!-- Frame Foto Bulat -->
+            <div class="mx-auto mb-3" style="width: 120px; height: 120px;">
+                <img src="{{ asset('images/direktur.jpg') }}" 
+                     alt="Foto Direktur Utama" 
+                     class="img-fluid rounded-circle shadow-sm border border-2 border-light object-fit-cover"
+                     style="width: 100%; height: 100%;">
             </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
-                    <div class="bg-light rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                        <i class="bi bi-person-gear text-primary display-4"></i>
-                    </div>
-                    <h5 class="fw-bold mb-1">Kepala Divisi Teknik</h5>
-                    <p class="text-muted small mb-2">Operasional & NOC</p>
-                    <p class="text-muted small mb-0">Memastikan kestabilan jaringan, keamanan server, dan standar operasional lapangan (K3).</p>
-                </div>
-            </div>
+            
+            <h5 class="fw-bold mb-1 text-dark">Nama Direktur Utama</h5>
+            <p class="text-primary small mb-2 fw-semibold">Direktur Utama</p>
+            <p class="text-muted small mb-2">Pimpinan & Strategi Korporat</p>
+            <p class="text-muted small mb-0 lh-base">
+                Berpengalaman lebih dari 15 tahun di bidang infrastruktur jaringan telekomunikasi nasional.
+            </p>
         </div>
+    </div>
+
+    <!-- Kartu Kepala Divisi Teknik -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+            <!-- Frame Foto Bulat -->
+            <div class="mx-auto mb-3" style="width: 120px; height: 120px;">
+                <img src="{{ asset('images/kepala_teknik.jpg') }}" 
+                     alt="Foto Kepala Divisi Teknik" 
+                     class="img-fluid rounded-circle shadow-sm border border-2 border-light object-fit-cover"
+                     style="width: 100%; height: 100%;">
+            </div>
+
+            <h5 class="fw-bold mb-1 text-dark">Nama Kepala Teknik</h5>
+            <p class="text-primary small mb-2 fw-semibold">Kepala Divisi Teknik</p>
+            <p class="text-muted small mb-2">Operasional & NOC</p>
+            <p class="text-muted small mb-0 lh-base">
+                Memastikan kestabilan jaringan, keamanan server, dan standar operasional lapangan (K3).
+            </p>
+        </div>
+    </div>
+</div>
     </div>
 </section>
 
@@ -289,15 +308,15 @@
 <section class="py-5 bg-light border-top">
     <div class="container py-4">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-            <div class="row g-0 align-items-center">
-                <div class="col-lg-8">
-                    <div class="card-body p-4 p-lg-5">
+            <div class="row g-0 align-items-center justify-content-center">
+                <div class="col-lg-10 col-xl-8">
+                    <div class="card-body p-4 p-lg-5 text-center">
                         <span class="badge bg-primary mb-3 text-uppercase">Hubungi Kami</span>
                         <h2 class="fw-bold text-dark mb-3">Siap Berkolaborasi dengan Kami?</h2>
-                        <p class="text-muted lh-lg mb-4">
+                        <p class="text-muted lh-lg mb-4 col-lg-10 mx-auto">
                             Konsultasikan kebutuhan jaringan dan teknologi usaha Anda bersama tim konsultan kami.
                         </p>
-                        <div class="d-flex flex-wrap gap-2">
+                        <div class="d-flex flex-wrap justify-content-center gap-2">
                             <a href="{{ url('/kontak') }}" class="btn btn-primary px-4 py-2 rounded-3 fw-semibold">
                                 <i class="bi bi-envelope-fill me-1"></i> Hubungi Tim Kami
                             </a>
@@ -306,9 +325,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 d-none d-lg-flex bg-primary text-white align-items-center justify-content-center py-5">
-                    <i class="bi bi-headset display-1"></i>
                 </div>
             </div>
         </div>

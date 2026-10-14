@@ -8,7 +8,7 @@ use App\Models\Artikel;
 class ArtikelController extends Controller
 {
     public function index(){
-        $artikels = Artikel::latest()->paginate(6);
+        $artikels = Artikel::orderByDesc('tanggal_upload')->get();
         return view('artikel.index', compact('artikels'));
     }
     public function show($id)

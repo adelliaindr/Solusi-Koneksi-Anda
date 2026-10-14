@@ -3,8 +3,8 @@
 @section('content')
 <!-- HERO SECTION -->
 <section
-    class="text-white text-center d-flex align-items-center justify-content-center mb-5"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 100vh;">
+    class="text-white text-center d-flex align-items-center justify-content-center m-0"
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 79vh;">
 
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -26,23 +26,23 @@
 </section>
 
 <!-- TOP NAVIGATION BAR / KATEGORI GALERI -->
-<section class="bg-white border-bottom py-3 shadow-sm sticky-top" style="top: 56px; z-index: 1020;">
+<section class="bg-white border-bottom py-3 shadow-sm sticky-top m-0" style="top: 66px; z-index: 1019;">
     <div class="container">
         <ul class="nav nav-pills justify-content-center flex-nowrap overflow-auto gap-2 py-1">
             <li class="nav-item">
-                <a class="nav-link {{ request('kategori') == '' ? 'active bg-primary' : 'text-dark border' }}" href="{{ url('/galeri') }}">Semua</a>
+                <a class="nav-link rounded-pill px-4 fw-semibold {{ request('kategori') == '' ? 'active bg-primary text-white' : 'text-dark border' }}" href="{{ url('/galeri') }}">Semua</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('kategori') == 'jaringan' ? 'active bg-primary' : 'text-dark border' }}" href="{{ url('/galeri?kategori=jaringan') }}">Infrastruktur & Jaringan</a>
+                <a class="nav-link rounded-pill px-4 fw-semibold {{ request('kategori') == 'jaringan' ? 'active bg-primary text-white' : 'text-dark border' }}" href="{{ url('/galeri?kategori=jaringan') }}">Infrastruktur & Jaringan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('kategori') == 'kegiatan' ? 'active bg-primary' : 'text-dark border' }}" href="{{ url('/galeri?kategori=kegiatan') }}">Kegiatan & Pelatihan</a>
+                <a class="nav-link rounded-pill px-4 fw-semibold {{ request('kategori') == 'kegiatan' ? 'active bg-primary text-white' : 'text-dark border' }}" href="{{ url('/galeri?kategori=kegiatan') }}">Kegiatan & Pelatihan</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('kategori') == 'fasilitas' ? 'active bg-primary' : 'text-dark border' }}" href="{{ url('/galeri?kategori=fasilitas') }}">Fasilitas Kantor</a>
+                <a class="nav-link rounded-pill px-4 fw-semibold {{ request('kategori') == 'fasilitas' ? 'active bg-primary text-white' : 'text-dark border' }}" href="{{ url('/galeri?kategori=fasilitas') }}">Fasilitas Kantor</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request('kategori') == 'prestasi' ? 'active bg-primary' : 'text-dark border' }}" href="{{ url('/galeri?kategori=prestasi') }}">Prestasi & Penghargaan</a>
+                <a class="nav-link rounded-pill px-4 fw-semibold {{ request('kategori') == 'prestasi' ? 'active bg-primary text-white' : 'text-dark border' }}" href="{{ url('/galeri?kategori=prestasi') }}">Prestasi & Penghargaan</a>
             </li>
         </ul>
     </div>
@@ -90,9 +90,6 @@
                     <p class="text-muted col-lg-6 mx-auto mb-4">
                         Foto dokumentasi kegiatan dan fasilitas bersifat dinamis. Admin dapat mengunggah foto baru melalui panel admin.
                     </p>
-                    <a href="{{ url('/admin/galeri') }}" class="btn btn-primary px-4 py-2">
-                        <i class="bi bi-gear-fill me-1"></i> Ke Halaman Admin
-                    </a>
                 </div>
             </div>
             @endforelse

@@ -28,28 +28,36 @@
         @method('PUT')
 
         <div class="row">
-            <div class="col-md-8 mb-3">
-                <label class="form-label fw-semibold">Judul Artikel <span class="text-danger">*</span></label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $artikel->title) }}" required>
-                @error('title')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
+    <div class="col-md-6 mb-3">
+        <label class="form-label fw-semibold">Judul Artikel <span class="text-danger">*</span></label>
+        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $artikel->title) }}" required>
+        @error('title')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-            <div class="col-md-4 mb-3">
-                <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
-                <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
-                    <option value="" disabled>-- Pilih Kategori --</option>
-                    <option value="Berita" {{ old('kategori', $artikel->kategori) == 'Berita' ? 'selected' : '' }}>Berita</option>
-                    <option value="Teknologi" {{ old('kategori', $artikel->kategori) == 'Teknologi' ? 'selected' : '' }}>Teknologi</option>
-                    <option value="Tips & Trik" {{ old('kategori', $artikel->kategori) == 'Tips & Trik' ? 'selected' : '' }}>Tips & Trik</option>
-                    <option value="Pengumuman" {{ old('kategori', $artikel->kategori) == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
-                </select>
-                @error('kategori')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-        </div>
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">Kategori <span class="text-danger">*</span></label>
+        <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
+            <option value="" disabled>-- Pilih Kategori --</option>
+            <option value="Berita" {{ old('kategori', $artikel->kategori) == 'Berita' ? 'selected' : '' }}>Berita</option>
+            <option value="Teknologi" {{ old('kategori', $artikel->kategori) == 'Teknologi' ? 'selected' : '' }}>Teknologi</option>
+            <option value="Tips & Trik" {{ old('kategori', $artikel->kategori) == 'Tips & Trik' ? 'selected' : '' }}>Tips & Trik</option>
+            <option value="Pengumuman" {{ old('kategori', $artikel->kategori) == 'Pengumuman' ? 'selected' : '' }}>Pengumuman</option>
+        </select>
+        @error('kategori')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+
+    <div class="col-md-3 mb-3">
+        <label class="form-label fw-semibold">Tanggal Upload <span class="text-danger">*</span></label>
+        <input type="date" name="tanggal_upload" class="form-control @error('tanggal_upload') is-invalid @enderror" value="{{ old('tanggal_upload', ($artikel->tanggal_upload ?? $artikel->created_at)->format('Y-m-d')) }}" required>
+        @error('tanggal_upload')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
+</div>
 
         <div class="mb-3">
             <label class="form-label fw-semibold">Gambar Saat Ini</label>
