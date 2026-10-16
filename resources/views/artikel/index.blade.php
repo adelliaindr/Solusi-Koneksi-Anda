@@ -9,10 +9,10 @@
     $aktif = $normalisasi(request('kategori', ''));
 
     $tabs = [
-        'berita'        => ['Berita', 'bi-newspaper'],
-        'teknologi'     => ['Teknologi', 'bi-cpu'],
-        'tips dan trik' => ['Tips & Trik', 'bi-lightbulb'],
-        'pengumuman'    => ['Pengumuman', 'bi-megaphone'],
+        'berita'        => ['Berita'],
+        'teknologi'     => ['Teknologi'],
+        'tips dan trik' => ['Tips & Trik'],
+        'pengumuman'    => ['Pengumuman'],
     ];
 
     $daftar = collect($artikels ?? []);
@@ -53,15 +53,15 @@
             <li class="nav-item">
                 <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === '' ? 'active bg-primary' : 'text-dark border' }}"
                    href="{{ url('/artikel') }}">
-                    <i class="bi bi-grid-fill me-1"></i> Semua
+                    <i class="bi me-1"></i> Semua
                 </a>
             </li>
 
-            @foreach($tabs as $key => [$label, $ikon])
+            @foreach($tabs as $key => [$label])
                 <li class="nav-item">
                     <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === $key ? 'active bg-primary' : 'text-dark border' }}"
                        href="{{ url('/artikel') }}?{{ http_build_query(['kategori' => $key]) }}">
-                        <i class="bi {{ $ikon }} me-1"></i> {{ $label }}
+                       {{ $label }}
                     </a>
                 </li>
             @endforeach

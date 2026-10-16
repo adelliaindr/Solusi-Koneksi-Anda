@@ -269,42 +269,7 @@
     </div>
 </section>
 
-<!-- 8. INFORMASI PERUSAHAAN -->
-<section class="py-5 bg-white border-top">
-    <div class="container py-4">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card border-0 shadow-sm rounded-4">
-                    <div class="card-body p-4 p-lg-5">
-                        <h3 class="fw-bold text-primary mb-4 text-center">Informasi Perusahaan</h3>
-                        <table class="table table-borderless align-middle mb-0">
-                            <tbody>
-                                <tr class="border-bottom">
-                                    <th class="text-muted fw-semibold py-3" style="width: 35%;">Nama Perusahaan</th>
-                                    <td class="py-3 fw-medium">PT Solusi Koneksi Anda</td>
-                                </tr>
-                                <tr class="border-bottom">
-                                    <th class="text-muted fw-semibold py-3">Bidang Usaha</th>
-                                    <td class="py-3">Infrastruktur jaringan, telekomunikasi, dan solusi teknologi informasi</td>
-                                </tr>
-                                <tr class="border-bottom">
-                                    <th class="text-muted fw-semibold py-3">Kantor Pusat</th>
-                                    <td class="py-3">Jl. Raya Pajajaran No. 88 F, Kota Bogor, Jawa Barat 16153</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-muted fw-semibold py-3">Legalitas</th>
-                                    <td class="py-3">PT Berbadan Hukum Resmi & Tersertifikasi</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- 9. CTA (CALL TO ACTION) -->
+<!-- 8. CTA (CALL TO ACTION) -->
 <section class="py-5 bg-light border-top">
     <div class="container py-4">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">

@@ -86,6 +86,6 @@
 </div>
 
 <div class="mt-3">
-    {{ $produks->links() }}
+    {{ $produks->appends(request()->query())->links('pagination::bootstrap-5') }}
 </div>
 @endsection

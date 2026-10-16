@@ -6,9 +6,6 @@
         <div class="col-md-5">
             <div class="card shadow-lg border-0 rounded-4 p-4 p-lg-5 bg-white">
                 <div class="text-center mb-4">
-                    <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                        <i class="bi bi-shield-lock-fill fs-3"></i>
-                    </div>
                     <h3 class="fw-bold text-dark">Admin Login</h3>
                     <p class="text-muted small">PT Solusi Koneksi Anda - Panel Pengelola</p>
                 </div>

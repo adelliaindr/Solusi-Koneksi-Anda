@@ -17,7 +17,7 @@
         <p class="text-muted small mb-0">Daftar berita, pengumuman, dan artikel informatif perusahaan.</p>
     </div>
     <a href="{{ route('artikel.create') }}" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm fw-semibold d-inline-flex align-items-center">
-        <i class="bi bi-plus-lg me-2"></i> Tambah Artikel Baru
+        <i class="bi bi-plus-lg me-2"></i> Tambah Artikel
     </a>
 </div>
 

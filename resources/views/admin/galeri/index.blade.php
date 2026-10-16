@@ -107,6 +107,6 @@
 </div>
 
 <div class="mt-3">
-    {{ $galeris->links() }}
+    {{ $galeris->appends(request()->query())->links('pagination::bootstrap-5') }}
 </div>
 @endsection

@@ -57,7 +57,7 @@
         @enderror
     </div>
 </div>
-        </div>
+        
 
         <div class="mb-3">
             <label class="form-label fw-semibold">Gambar Utama <span class="text-danger">*</span></label>
@@ -75,6 +75,8 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+    </div>
 
         <div class="d-flex justify-content-end gap-2">
             <a href="{{ route('artikel.index') }}" class="btn btn-light border">Batal</a>

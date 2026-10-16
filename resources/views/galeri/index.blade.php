@@ -98,7 +98,7 @@
         <!-- Pagination Galeri -->
         @if(method_exists($galeris ?? null, 'links'))
         <div class="d-flex justify-content-center mt-4">
-            {{ $galeris->links() }}
+            {{ $galeris->appends(request()->query())->links('pagination::bootstrap-5') }}
         </div>
         @endif
     </div>
