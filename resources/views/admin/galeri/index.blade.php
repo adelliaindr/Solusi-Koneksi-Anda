@@ -52,55 +52,52 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($galeris as $index => $galeri)
-                        <tr>
-                            <td class="ps-4 fw-semibold">{{ $galeris->firstItem() + $index }}</td>
-                            <td>
-                                @if($galeri->image)
-                                    <img src="{{ filter_var($galeri->image, FILTER_VALIDATE_URL) ? $galeri->image : asset('storage/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="rounded object-fit-cover" style="width: 55px; height: 55px;">
-                                @else
-                                    <span class="badge bg-secondary">No Image</span>
-                                @endif
-                            </td>
-                            <td class="fw-bold text-dark">{{ $galeri->title }}</td>
-                            <td><span class="badge bg-light text-primary border px-3 py-2 rounded-pill">{{ $galeri->category ?? 'Umum' }}</span></td>
-                            
-                            <!-- Menampilkan Tanggal Upload -->
-                            <td>
-                                <span class="text-dark fw-semibold small">{{ $galeri->created_at->format('d M Y') }}</span>
-                                <small class="text-muted d-block" style="font-size: 0.75rem;">{{ $galeri->created_at->format('H:i') }} WIB</small>
-                            </td>
-
-                            <td class="text-center">
-                                <span class="badge bg-danger bg-opacity-10 text-danger px-2 py-1 rounded me-1" title="Jumlah Like">
-                                    <i class="bi bi-heart-fill me-1"></i> {{ method_exists($galeri, 'likes') ? $galeri->likes->count() : 0 }}
-                                </span>
-                                <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded" title="Jumlah Komentar">
-                                    <i class="bi bi-chat-fill me-1"></i> {{ method_exists($galeri, 'komentars') ? $galeri->komentars->count() : 0 }}
-                                </span>
-                            </td>
-                            <td class="text-center">
-                                <a href="{{ route('galeri.show', $galeri->id) }}" class="btn btn-sm btn-info text-white me-1" title="Lihat Detail & Komentar">
-                                    <i class="bi bi-eye-fill"></i>
-                                </a>
-                                <a href="{{ route('galeri.edit', $galeri->id) }}" class="btn btn-sm btn-warning text-white me-1" title="Edit">
-                                    <i class="bi bi-pencil-square"></i>
-                                </a>
-                                <form action="{{ route('galeri.destroy', $galeri->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Yakin ingin menghapus foto galeri ini?')">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center py-4 text-muted">Belum ada foto galeri yang diunggah.</td>
-                        </tr>
-                    @endforelse
-                </tbody>
+    @forelse($galeris as $galeri)
+        <tr>
+            <td class="ps-4 fw-semibold">{{ $galeris->firstItem() + $loop->index }}</td>
+            <td>
+                @if($galeri->image)
+                    <img src="{{ filter_var($galeri->image, FILTER_VALIDATE_URL) ? $galeri->image : asset('storage/' . $galeri->image) }}" alt="{{ $galeri->title }}" class="rounded object-fit-cover" style="width: 55px; height: 55px;">
+                @else
+                    <span class="badge bg-secondary">No Image</span>
+                @endif
+            </td>
+            <td class="fw-semibold">{{ $galeri->title }}</td>
+            <td><span class="badge bg-light text-primary border px-3 py-2 rounded-pill">{{ $galeri->kategori ?? 'Umum' }}</span></td>
+            <td>
+                <span class="text-dark fw-semibold small">
+                {{ \Carbon\Carbon::parse($galeri->tanggal ?? $galeri->created_at)->translatedFormat('d M Y') }}
+            </td>
+            <td class="text-center">
+                <span class="badge bg-danger bg-opacity-10 text-danger px-2 py-1 rounded me-1" title="Jumlah Like">
+                    <i class="bi bi-heart-fill me-1"></i> {{ method_exists($galeri, 'likes') ? $galeri->likes->count() : 0 }}
+                </span>
+                <span class="badge bg-primary bg-opacity-10 text-primary px-2 py-1 rounded" title="Jumlah Komentar">
+                    <i class="bi bi-chat-fill me-1"></i> {{ method_exists($galeri, 'komentars') ? $galeri->komentars->count() : 0 }}
+                </span>
+            </td>
+            <td class="text-center">
+                <a href="{{ route('galeri.show', $galeri->id) }}" class="btn btn-sm btn-info text-white me-1" title="Lihat Detail & Komentar">
+                    <i class="bi bi-eye-fill"></i>
+                </a>
+                <a href="{{ route('galeri.edit', $galeri->id) }}" class="btn btn-sm btn-warning text-white me-1" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <form action="{{ route('galeri.destroy', $galeri->id) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Yakin ingin menghapus foto galeri ini?')">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="7" class="text-center py-4 text-muted">Belum ada foto galeri yang diunggah.</td>
+        </tr>
+    @endforelse
+</tbody>
             </table>
         </div>
     </div>

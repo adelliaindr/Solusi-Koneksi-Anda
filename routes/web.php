@@ -28,6 +28,7 @@ Route::get('/galeri', [GaleriController::class, 'index'])->name('public.galeri.i
 Route::get('/galeri/{id}', [GaleriController::class, 'show']);
 Route::post('/galeri/{id}/like', [GaleriController::class, 'like'])->name('galeri.like');
 Route::post('/galeri/{id}/comment', [GaleriController::class, 'comment'])->name('galeri.comment');
+Route::delete('/komentar-publik/{id}', [GaleriController::class, 'destroyKomentar'])->name('galeri.komentar.destroy');
 Route::get('/kontak', [KontakController::class, 'index']);
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 
@@ -39,6 +40,9 @@ Route::post('/admin/login', [AdminAuthController::class, 'login']);
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminAuthController::class, 'dashboard']);
     Route::post('/logout', [AdminAuthController::class, 'logout']);
+
+    Route::get('/profil/edit', [AdminAuthController::class, 'editProfile'])->name('admin.profil.edit');
+    Route::put('/profil/update', [AdminAuthController::class, 'updateProfile'])->name('admin.profil.update');
     
     // Resource CRUD Admin Produk (URL: /admin/produk)
     Route::resource('produk', AdminProdukController::class)->parameters([

@@ -54,17 +54,20 @@
     </div>
 
     <div class="d-flex justify-content-between align-items-center">
-        <a href="mailto:{{ $kontak->email }}?subject=Re: {{ $kontak->subject ?? $kontak->subjek }}" class="btn btn-primary fw-semibold">
-            <i class="bi bi-reply-fill me-1">}</i> Balas via Email
-        </a>
+    <!-- Tombol Balas via Email yang otomatis terisi data pengunjung -->
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to={{ urlencode($kontak->email) }}&su=Re:%20{{ urlencode($kontak->subject ?? $kontak->subjek) }}&body=Halo%20{{ urlencode($kontak->name ?? $kontak->nama) }},%0A%0ATerima%20kasih%20telah%20menghubungi%20PT%20Solusi%20Koneksi%20Anda.%0A%0ABerkaitan%20dengan%20pesan%20Anda:%0A%22{{ urlencode($kontak->message ?? $kontak->pesan) }}%22%0A%0A[Tulis%20balasan%20Anda%20di%20sini]" 
+   target="_blank" 
+   class="btn btn-primary fw-semibold">
+    <i class="bi bi-reply-fill me-1"></i> Balas via Email
+</a>
 
-        <form action="{{ route('kontak.destroy', $kontak->id) }}" method="POST" class="d-inline">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-danger fw-semibold" onclick="return confirm('Yakin ingin menghapus pesan ini?')">
-                <i class="bi bi-trash-fill me-1"></i> Hapus Pesan
-            </button>
-        </form>
-    </div>
+    <form action="{{ route('kontak.destroy', $kontak->id) }}" method="POST" class="d-inline">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger fw-semibold" onclick="return confirm('Yakin ingin menghapus pesan ini?')">
+            <i class="bi bi-trash-fill me-1"></i> Hapus Pesan
+        </button>
+    </form>
+</div>
 </div>
 @endsection

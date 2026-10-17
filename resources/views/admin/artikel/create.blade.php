@@ -76,8 +76,6 @@
             @enderror
         </div>
 
-    </div>
-
         <div class="d-flex justify-content-end gap-2">
             <a href="{{ route('artikel.index') }}" class="btn btn-light border">Batal</a>
             <button type="submit" class="btn btn-primary fw-semibold px-4">

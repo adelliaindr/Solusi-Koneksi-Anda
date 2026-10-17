@@ -13,8 +13,7 @@ class AdminGaleriController extends Controller
     {
         $query = Galeri::latest();
 
-        // Filter berdasarkan kategori jika dipilih di navbar publik
-        if ($request->has('kategori') && $request->kategori != '') {
+        if ($request->filled('kategori')) {
             $query->where('kategori', $request->kategori);
         }
 
@@ -30,73 +29,77 @@ class AdminGaleriController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'kategori' => 'required|string|max:100',
-            'deskripsi' => 'nullable|string', // Ganti description
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ]);
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'kategori' => 'required|string|max:100',
+        'deskripsi' => 'nullable|string',
+        'tanggal' => 'nullable|date',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+    ]);
 
-        $imagePath = $request->file('image')->store('galeri', 'public');
+    $imagePath = $request->file('image')->store('galeri', 'public');
 
-        Galeri::create([
-            'title' => $request->title,
-            'kategori' => $request->kategori,
-            'deskripsi' => $request->deskripsi, // Ganti description
-            'image' => $imagePath,
-        ]);
+    Galeri::create([
+        'title' => $request->title,
+        'kategori' => $request->kategori,
+        'deskripsi' => $request->deskripsi,
+        'tanggal' => $request->tanggal ?? now()->toDateString(),
+        'image' => $imagePath,
+    ]);
 
-        return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil ditambahkan!');
-    }
+    return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil ditambahkan!');
+}
 
     public function show($id)
     {
-        $galeri = Galeri::findOrFail($id);
-        return view('admin.galeri.show', compact('galeri'));
+        $galeris = Galeri::findOrFail($id);
+        return view('admin.galeri.show', compact('galeris'));
     }
 
     public function edit($id)
     {
-        $galeri = Galeri::findOrFail($id);
-        return view('admin.galeri.edit', compact('galeri'));
+        $galeris = Galeri::findOrFail($id);
+        return view('admin.galeri.edit', compact('galeris'));
     }
 
     public function update(Request $request, $id)
-    {
-        $galeri = Galeri::findOrFail($id);
+{
+    $galeris = Galeri::findOrFail($id);
 
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'kategori' => 'required|string|max:100',
-            'deskripsi' => 'nullable|string', // Ganti description
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
-        ]);
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'kategori' => 'required|string|max:100',
+        'deskripsi' => 'nullable|string',
+        'tanggal' => 'nullable|date',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+    ]);
 
-        if ($request->hasFile('image')) {
-            if ($galeri->image && Storage::disk('public')->exists($galeri->image)) {
-                Storage::disk('public')->delete($galeri->image);
-            }
-            $galeri->image = $request->file('image')->store('galeri', 'public');
+    if ($request->hasFile('image')) {
+        if ($galeris->image && Storage::disk('public')->exists($galeris->image)) {
+            Storage::disk('public')->delete($galeris->image);
         }
-
-        $galeri->title = $request->title;
-        $galeri->kategori = $request->kategori;
-        $galeri->deskripsi = $request->deskripsi; // Ganti description
-        $galeri->save();
-
-        return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil diperbarui!');
+        $galeris->image = $request->file('image')->store('galeri', 'public');
     }
+
+    $galeris->title = $request->title;
+    $galeris->kategori = $request->kategori;
+    $galeris->deskripsi = $request->deskripsi;
+    $galeris->tanggal = $request->tanggal ?? $galeris->tanggal;
+    $galeris->save();
+
+    return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil diperbarui!');
+}
 
     public function destroy($id)
     {
-        $galeri = Galeri::findOrFail($id);
+        $galeris = Galeri::findOrFail($id);
 
-        if ($galeri->image && Storage::disk('public')->exists($galeri->image)) {
-            Storage::disk('public')->delete($galeri->image);
+        if ($galeris->image && Storage::disk('public')->exists($galeris->image)) {
+            Storage::disk('public')->delete($galeris->image);
         }
 
-        $galeri->delete();
+        $galeris->delete();
 
         return redirect()->route('galeri.index')->with('success', 'Foto galeri berhasil dihapus!');
     }

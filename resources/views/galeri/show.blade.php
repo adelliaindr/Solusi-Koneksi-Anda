@@ -30,7 +30,7 @@
             <!-- KOLOM KIRI: FOTO -->
             <div class="col-lg-8 bg-dark d-flex align-items-center justify-content-center">
                 @if($galeris->image)
-                    <img src="{{ asset('storage/' . $galeris->image) }}"
+                    <img src="{{ filter_var($galeris->image, FILTER_VALIDATE_URL) ? $galeris->image : asset('storage/' . $galeris->image) }}"
                          class="img-fluid"
                          alt="{{ $galeris->title }}"
                          style="max-height: 85vh; object-fit: contain;">
@@ -49,8 +49,8 @@
                 <div class="p-4 border-bottom">
                     <h4 class="fw-bold mb-2 text-break">{{ $galeris->title }}</h4>
                     <div class="text-muted d-flex flex-wrap align-items-center gap-2">
-                        <div class="mb-3 text-muted small">
-                            <i class="bi bi-calendar3 me-1"></i> Diunggah pada: {{ $galeris->created_at->format('d M Y, H:i') }} WIB
+                        <div class="mb-0 text-muted small">
+                            <i class="bi bi-calendar3 me-1"></i> Diunggah pada: {{ \Carbon\Carbon::parse($galeris->tanggal ?? $galeris->created_at)->format('d M Y') }}
                         </div>
                         @if(!empty($galeris->kategori))
                             <span class="badge bg-secondary text-capitalize">{{ $galeris->kategori }}</span>
@@ -63,24 +63,35 @@
                     <form action="{{ route('galeri.like', $galeris->id) }}" method="POST" class="m-0">
                         @csrf
                         <button type="submit" class="btn btn-link p-0 text-decoration-none text-dark d-flex align-items-center gap-2 fw-semibold fs-5">
-                            <i class="bi bi-heart-fill fs-3 {{ $galeris->likes->count() > 0 ? 'text-danger' : 'text-secondary' }}"></i>
-                            {{ $galeris->likes->count() }} Suka
+                            <i class="bi bi-heart-fill fs-3 {{ method_exists($galeris, 'likes') && $galeris->likes->count() > 0 ? 'text-danger' : 'text-secondary' }}"></i>
+                            {{ method_exists($galeris, 'likes') ? $galeris->likes->count() : 0 }} Suka
                         </button>
                     </form>
                     <span class="text-muted">
-                        <i class="bi bi-chat-left-text me-1"></i>{{ $galeris->komentars->count() }} Komentar
+                        <i class="bi bi-chat-left-text me-1"></i>{{ method_exists($galeris, 'komentars') ? $galeris->komentars->count() : 0 }} Komentar
                     </span>
                 </div>
 
-                <!-- Daftar Komentar -->
+                <!-- Daftar Komentar (Diperbaiki menggunakan $galeris) -->
                 <div class="flex-grow-1 overflow-auto px-4 py-2" style="max-height: 420px;">
-                    @forelse($galeris->komentars as $komentar)
-                        <div class="border-bottom py-3">
-                            <div class="d-flex align-items-baseline gap-2 mb-1">
-                                <span class="fw-bold">{{ $komentar->nama_pengirim }}</span>
-                                <small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small>
+                    @forelse($galeris->komentars ?? [] as $komentar)
+                        <div class="border-bottom py-3 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="d-flex align-items-baseline gap-2 mb-1">
+                                    <span class="fw-bold">{{ $komentar->nama_pengirim ?? $komentar->name }}</span>
+                                    <small class="text-muted">{{ $komentar->created_at->diffForHumans() }}</small>
+                                </div>
+                                <p class="text-muted mb-0 text-break">{{ $komentar->isi_komentar ?? $komentar->comment }}</p>
                             </div>
-                            <p class="text-muted mb-0 text-break">{{ $komentar->isi_komentar }}</p>
+                            
+                            <!-- Tombol Hapus Komentar untuk Pengunjung -->
+                            <form action="{{ route('galeri.komentar.destroy', $komentar->id) }}" method="POST" class="m-0 ms-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-link text-danger p-0 text-decoration-none small" onclick="return confirm('Hapus komentar ini?')" title="Hapus">
+                                    <i class="bi bi-x-circle"></i>
+                                </button>
+                            </form>
                         </div>
                     @empty
                         <p class="text-muted text-center py-5 mb-0">Belum ada komentar untuk foto ini.</p>

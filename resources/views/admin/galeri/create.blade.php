@@ -27,7 +27,7 @@
         @csrf
         
         <div class="row">
-            <div class="col-md-8 mb-3">
+            <div class="col-md-6 mb-3">
                 <label class="form-label fw-semibold">Judul Foto / Kegiatan <span class="text-danger">*</span></label>
                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Contoh: Peresmian Jaringan Fiber Optik Baru" value="{{ old('title') }}" required>
                 @error('title')
@@ -35,16 +35,25 @@
                 @enderror
             </div>
 
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label class="form-label fw-semibold">Pilih Kategori <span class="text-danger">*</span></label>
                 <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
                     <option value="" disabled selected>-- Pilih Kategori --</option>
-                    <option value="jaringan" {{ old('kategori', $galeri->kategori ?? '') == 'jaringan' ? 'selected' : '' }}>Infrastruktur & Jaringan</option>
-                    <option value="kegiatan" {{ old('kategori', $galeri->kategori ?? '') == 'kegiatan' ? 'selected' : '' }}>Kegiatan & Pelatihan</option>
-                    <option value="fasilitas" {{ old('kategori', $galeri->kategori ?? '') == 'fasilitas' ? 'selected' : '' }}>Fasilitas Kantor</option>
-                    <option value="prestasi" {{ old('kategori', $galeri->kategori ?? '') == 'prestasi' ? 'selected' : '' }}>Prestasi & Penghargaan</option>
+                    <option value="jaringan" {{ old('kategori') == 'jaringan' ? 'selected' : '' }}>Infrastruktur & Jaringan</option>
+                    <option value="kegiatan" {{ old('kategori') == 'kegiatan' ? 'selected' : '' }}>Kegiatan & Pelatihan</option>
+                    <option value="fasilitas" {{ old('kategori') == 'fasilitas' ? 'selected' : '' }}>Fasilitas Kantor</option>
+                    <option value="prestasi" {{ old('kategori') == 'prestasi' ? 'selected' : '' }}>Prestasi & Penghargaan</option>
                 </select>
-                @error('category')
+                @error('kategori')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Input Tanggal Dokumentasi -->
+            <div class="col-md-3 mb-3">
+                <label class="form-label fw-semibold">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', date('Y-m-d')) }}" required>
+                @error('tanggal')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -59,12 +68,12 @@
             @enderror
         </div>
 
-        <div class="d-flex justify-content-end gap-2">
+        <div class="d-flex justify-content-end gap-2 mb-3">
             <a href="{{ route('galeri.index') }}" class="btn btn-light border">Batal</a>
             <button type="submit" class="btn btn-primary fw-semibold px-4">
                 <i class="bi bi-save me-1"></i> Simpan Foto
             </button>
         </div>
     </form>
-</div>
+    </div>
 @endsection

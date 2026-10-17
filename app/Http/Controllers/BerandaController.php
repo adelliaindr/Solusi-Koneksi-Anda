@@ -11,9 +11,9 @@ class BerandaController extends Controller
 {
     public function index()
     {
-        $produks = Produk::latest()->take(3)->get();
-        $artikels = Artikel::latest()->take(3)->get();
-        $galeris = Galeri::latest()->take(6)->get();
+        $produks = Produk::latest()->take(4)->get();
+        $artikels = Artikel::latest()->take(4)->get();
+        $galeris = Galeri::latest()->take(4)->get();
 
         return view('beranda', compact('produks', 'artikels', 'galeris'));
     }

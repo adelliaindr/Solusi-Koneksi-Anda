@@ -55,7 +55,7 @@
             @forelse($galeris ?? [] as $item)
             <div class="col-md-3 col-sm-6 mb-4">
                 <!-- Dibungkus a href agar bisa diklik menuju halaman show -->
-                <a href="{{ url('/galeri/' . $item->id) }}" class="text-decoration-none">
+                <a href="{{ url('/galeri/' . $item->id) }}" class="text-decoration-none h-100 d-block">
                     <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden card-hover">
                         @if($item->image)
                             <img src="{{ filter_var($item->image, FILTER_VALIDATE_URL) ? $item->image : asset('storage/' . $item->image) }}" class="card-img-top object-fit-cover" alt="{{ $item->title }}" style="height: 200px;">
@@ -65,15 +65,22 @@
                             </div>
                         @endif
                         
+                        <!-- card-body dijadikan flex-column agar elemen di dalamnya bisa diatur posisinya -->
                         <div class="card-body p-3 d-flex flex-column">
-                            <small class="text-muted d-block mb-1" style="font-size: 0.8rem;">
-                                <i class="bi bi-clock me-1"></i> {{ $item->created_at->translatedFormat('d F Y') }}
-                            </small>
+                            <div class="mb-2">
+                                <span class="text-muted small">
+                                    <i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($item->tanggal ?? $item->created_at)->format('d M Y') }}
+                                </span>
+                            </div>
+                            
+                            <!-- Judul diberikan pembatas tinggi/ruang fleksibel -->
                             <h6 class="fw-bold text-dark mb-2">{{ Str::limit($item->title, 35) }}</h6>
-                            <p class="card-text text-muted small flex-grow-1 mb-2">{{ Str::limit($item->description ?? '', 60) }}</p>
+                            
+                            <!-- flex-grow-1 membuat area kosong mengisi sisa ruang, sehingga badge terdorong ke bawah -->
+                            <div class="flex-grow-1"></div>
                             
                             @if(isset($item->kategori))
-                                <div>
+                                <div class="mt-2">
                                     <span class="badge bg-secondary text-capitalize">{{ $item->kategori }}</span>
                                 </div>
                             @endif

@@ -67,4 +67,15 @@ class GaleriController extends Controller
         
     }
 
+    public function destroyKomentar($id)
+    {
+        $komentar = \App\Models\Komentar::findOrFail($id);
+
+        // Hapus komentar
+        $komentar->delete();
+
+        return back()->with('success', 'Komentar Anda berhasil dihapus.');
+
+    }
+
 }

@@ -13,20 +13,39 @@
         .sidebar { background-color: #ffffff; min-height: 100vh; }
         .nav-link.active { background-color: #0a3663 !important; color: white !important; }
         .nav-link:hover:not(.active) { background-color: #f1f3f5; color: #0a3663; }
+        
+        /* Tambahan agar saat di HP sidebar muncul rapi sebagai dropdown/toggle */
+        @media (max-width: 767.98px) {
+            .sidebar {
+                min-height: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container-fluid">
-    <div class="row">
-        <!-- SIDEBAR DI KIRI (WARNA PUTIH DENGAN AKSEN BIRU) -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar collapse border-end p-3">
-            <div class="position-sticky pt-3">
-                <div class="text-center mb-4 pb-3 border-bottom">
-    <div class="d-flex align-items-center justify-content-center gap-2">
-        <img src="{{ asset('images/logobiru.jpg') }}" alt="Logo PT Solusi Koneksi Anda" style="height: 32px; width: auto; object-fit: contain;">
+    <!-- NAVBAR KHUSUS MOBILE (DENGAN TOMBOL HAMBURGER) -->
+    <div class="row d-md-none bg-white border-bottom p-3 align-items-center">
+        <div class="col-6">
+            <img src="{{ asset('images/logobiru.jpg') }}" alt="Logo" style="height: 28px; width: auto; object-fit: contain;">
+        </div>
+        <div class="col-6 text-end">
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list fs-4"></i> Menu
+            </button>
+        </div>
     </div>
-</div>
+
+    <div class="row">
+        <!-- SIDEBAR DI KIRI (DIBERIKAN ID sidebarMenu AGAR BISA DI-TOGGLE) -->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse border-end p-3 bg-white">
+            <div class="position-sticky pt-3">
+                <div class="text-center mb-4 pb-3 border-bottom d-none d-md-block">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
+                        <img src="{{ asset('images/logobiru.jpg') }}" alt="Logo PT Solusi Koneksi Anda" style="height: 32px; width: auto; object-fit: contain;">
+                    </div>
+                </div>
 
                 <ul class="nav flex-column gap-1">
                     <li class="nav-item">

@@ -2,20 +2,21 @@
 
 @section('admin_content')
     <!-- HEADER ATAS: JUDUL & PROFIL ADMIN -->
-    <div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-4 shadow-sm mb-4">
-        <div>
-            <h4 class="fw-bold text-dark mb-0">Dasbor Admin</h4>
-        </div>
-        <div class="d-flex align-items-center gap-3">
-            <div class="bg-secondary rounded-circle text-white d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                <i class="bi bi-person-fill fs-5"></i>
-            </div>
-            <div>
-                <h6 class="fw-bold mb-0 text-dark">Admin</h6>
-                <small class="text-muted" style="font-size: 0.8rem;">super admin</small>
-            </div>
-        </div>
+<div class="d-flex justify-content-between align-items-center bg-white p-3 rounded-4 shadow-sm mb-4">
+    <div>
+        <h4 class="fw-bold text-dark mb-0">Dasbor Admin</h4>
     </div>
+    <!-- Dibungkus a href agar bisa diklik menuju halaman edit profil -->
+    <a href="{{ route('admin.profil.edit') }}" class="d-flex align-items-center gap-3 text-decoration-none card-hover p-2 rounded-3 transition-all" title="Edit Profil">
+        <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center shadow-sm" style="width: 45px; height: 45px;">
+            <i class="bi bi-person-fill fs-5"></i>
+        </div>
+        <div>
+            <h6 class="fw-bold mb-0 text-dark">{{ Auth::user()->name ?? 'Admin' }}</h6>
+            <small class="text-muted" style="font-size: 0.8rem;">Super Admin <i class="bi bi-gear-fill ms-1 text-primary"></i></small>
+        </div>
+    </a>
+</div>
 
     <!-- SELAMAT DATANG -->
     <div class="mb-4">
@@ -156,55 +157,58 @@
 
     <!-- ARTIKEL TERBARU & GALERI TERBARU -->
     <div class="row g-4">
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold text-dark mb-0">Artikel Terbaru</h5>
-                    <a href="{{ url('/artikel') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
-                </div>
-                
-                <div class="d-flex flex-column gap-3">
-                    @php $latestArtikels = \App\Models\Artikel::latest()->take(3)->get(); @endphp
-                    @forelse($latestArtikels as $art)
-                        <div class="d-flex align-items-center gap-3 border-bottom pb-2">
-                            <img src="{{ filter_var($art->image, FILTER_VALIDATE_URL) ? $art->image : asset('storage/' . $art->image) }}" alt="Artikel" class="rounded object-fit-cover" style="width: 60px; height: 60px;">
-                            <div>
-                                <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.9rem;">{{ Str::limit($art->title, 45) }}</h6>
-                                <small class="text-muted"><i class="bi bi-calendar3 me-1"></i> {{ $art->created_at->format('d M Y') }}</small>
-                            </div>
-                        </div>
-                    @empty
-                        <p class="text-muted small text-center py-3">Belum ada artikel terbaru.</p>
-                    @endforelse
-                </div>
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-dark mb-0">Artikel Terbaru</h5>
+                <!-- Perbaikan 1: Mengarahkan ke route admin artikel (route('artikel.index')) -->
+                <a href="{{ route('artikel.index') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
             </div>
-        </div>
-
-        <div class="col-lg-6">
-            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h5 class="fw-bold text-dark mb-0">Galeri Terbaru</h5>
-                    <a href="{{ url('/galeri') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
-                </div>
-
-                <div class="row g-2">
-                    @php $latestGaleris = \App\Models\Galeri::latest()->take(4)->get(); @endphp
-                    @forelse($latestGaleris as $gal)
-                        <div class="col-6">
-                            <div class="position-relative rounded-3 overflow-hidden shadow-sm" style="height: 100px;">
-                                <img src="{{ filter_var($gal->image, FILTER_VALIDATE_URL) ? $gal->image : asset('storage/' . $gal->image) }}" alt="Galeri" class="w-100 h-100 object-fit-cover">
-                                <div class="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-50 text-white p-1 text-center" style="font-size: 0.75rem;">
-                                    {{ Str::limit($gal->title, 20) }}
-                                </div>
-                            </div>
+            
+            <div class="d-flex flex-column gap-3">
+                @php $latestArtikels = \App\Models\Artikel::latest()->take(3)->get(); @endphp
+                @forelse($latestArtikels as $art)
+                    <div class="d-flex align-items-center gap-3 border-bottom pb-2">
+                        <img src="{{ filter_var($art->image, FILTER_VALIDATE_URL) ? $art->image : asset('storage/' . $art->image) }}" alt="Artikel" class="rounded object-fit-cover" style="width: 60px; height: 60px;">
+                        <div>
+                            <h6 class="fw-bold mb-1 text-dark" style="font-size: 0.9rem;">{{ Str::limit($art->title, 45) }}</h6>
+                            <!-- Perbaikan 2: Menggunakan $art->tanggal_upload dengan fallback ke created_at -->
+                            <small class="text-muted"><i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($art->tanggal_upload ?? $art->created_at)->format('d M Y') }}</small>
                         </div>
-                    @empty
-                        <div class="col-12 text-center py-4 text-muted small">Belum ada foto galeri.</div>
-                    @endforelse
-                </div>
+                    </div>
+                @empty
+                    <p class="text-muted small text-center py-3">Belum ada artikel terbaru.</p>
+                @endforelse
             </div>
         </div>
     </div>
+
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold text-dark mb-0">Galeri Terbaru</h5>
+                <!-- (Opsional) Jika tombol "Lihat semua" galeri di dashboard mau ke admin juga, bisa pakai route('galeri.index') -->
+                <a href="{{ route('galeri.index') }}" class="text-decoration-none small fw-semibold text-primary">Lihat semua</a>
+            </div>
+
+            <div class="row g-2">
+                @php $latestGaleris = \App\Models\Galeri::latest()->take(4)->get(); @endphp
+                @forelse($latestGaleris as $gal)
+                    <div class="col-6">
+                        <div class="position-relative rounded-3 overflow-hidden shadow-sm" style="height: 100px;">
+                            <img src="{{ filter_var($gal->image, FILTER_VALIDATE_URL) ? $gal->image : asset('storage/' . $gal->image) }}" alt="Galeri" class="w-100 h-100 object-fit-cover">
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-dark bg-opacity-50 text-white p-1 text-center" style="font-size: 0.75rem;">
+                                {{ Str::limit($gal->title, 20) }}
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center py-4 text-muted small">Belum ada foto galeri.</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- SCRIPT CHART.JS UNTUK DIAGRAM GARIS KUNJUNGAN -->
     @php

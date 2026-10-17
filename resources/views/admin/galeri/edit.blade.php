@@ -15,7 +15,7 @@
         <h3 class="fw-bold text-dark mb-1 d-flex align-items-center">
             <i class="bi bi-pencil-square text-primary me-2"></i>Edit Foto Galeri
         </h3>
-        <p class="text-muted small mb-0">Perbarui informasi judul atau file gambar foto dokumentasi.</p>
+        <p class="text-muted small mb-0">Perbarui informasi judul, kategori, tanggal, deskripsi, atau file gambar foto dokumentasi.</p>
     </div>
     <a href="{{ route('galeri.index') }}" class="btn btn-outline-secondary btn-sm px-3 py-2 rounded-3 fw-semibold">
         <i class="bi bi-arrow-left me-1"></i> Kembali
@@ -23,29 +23,38 @@
 </div>
 
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-    <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('galeri.update', $galeris->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="row">
-            <div class="col-md-8 mb-3">
+            <div class="col-md-6 mb-3">
                 <label class="form-label fw-semibold">Judul Foto / Kegiatan <span class="text-danger">*</span></label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $galeri->title) }}" required>
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $galeris->title) }}" required>
                 @error('title')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
 
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <label class="form-label fw-semibold">Pilih Kategori <span class="text-danger">*</span></label>
                 <select name="kategori" class="form-select @error('kategori') is-invalid @enderror" required>
-                    <option value="" disabled selected>-- Pilih Kategori --</option>
-                    <option value="jaringan" {{ old('kategori', $galeri->kategori ?? '') == 'jaringan' ? 'selected' : '' }}>Infrastruktur & Jaringan</option>
-                    <option value="kegiatan" {{ old('kategori', $galeri->kategori ?? '') == 'kegiatan' ? 'selected' : '' }}>Kegiatan & Pelatihan</option>
-                    <option value="fasilitas" {{ old('kategori', $galeri->kategori ?? '') == 'fasilitas' ? 'selected' : '' }}>Fasilitas Kantor</option>
-                    <option value="prestasi" {{ old('kategori', $galeri->kategori ?? '') == 'prestasi' ? 'selected' : '' }}>Prestasi & Penghargaan</option>
+                    <option value="" disabled>-- Pilih Kategori --</option>
+                    <option value="jaringan" {{ old('kategori', $galeris->kategori) == 'jaringan' ? 'selected' : '' }}>Infrastruktur & Jaringan</option>
+                    <option value="kegiatan" {{ old('kategori', $galeris->kategori) == 'kegiatan' ? 'selected' : '' }}>Kegiatan & Pelatihan</option>
+                    <option value="fasilitas" {{ old('kategori', $galeris->kategori) == 'fasilitas' ? 'selected' : '' }}>Fasilitas Kantor</option>
+                    <option value="prestasi" {{ old('kategori', $galeris->kategori) == 'prestasi' ? 'selected' : '' }}>Prestasi & Penghargaan</option>
                 </select>
-                @error('category')
+                @error('kategori')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Input Tanggal Kegiatan (Bisa Diedit) -->
+            <div class="col-md-3 mb-3">
+                <label class="form-label fw-semibold">Tanggal Kegiatan <span class="text-danger">*</span></label>
+                <input type="date" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" value="{{ old('tanggal', $galeris->tanggal ?? $galeris->created_at->format('Y-m-d')) }}" required>
+                @error('tanggal')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
@@ -53,9 +62,9 @@
 
         <div class="mb-3">
             <label class="form-label fw-semibold">Foto Saat Ini</label>
-            @if($galeri->image)
+            @if($galeris->image)
                 <div class="mb-2">
-                    <img src="{{ filter_var($galeri->image, FILTER_VALIDATE_URL) ? $galeri->image : asset('storage/' . $galeri->image) }}" alt="Preview" class="rounded border" style="width: 120px; height: 120px; object-fit: cover;">
+                    <img src="{{ filter_var($galeris->image, FILTER_VALIDATE_URL) ? $galeris->image : asset('storage/' . $galeris->image) }}" alt="Preview" class="rounded border" style="width: 120px; height: 120px; object-fit: cover;">
                 </div>
             @endif
             <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">

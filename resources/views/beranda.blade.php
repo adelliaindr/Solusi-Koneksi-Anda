@@ -229,63 +229,7 @@
     </div>
 </section>
 
-<!-- 6. GALERI KEGIATAN -->
-<section class="py-5 bg-light border-top">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="fw-bold m-0">Galeri Kegiatan</h3>
-                <p class="text-muted small mb-0">Dokumentasi operasional, pengerjaan instalasi, dan aktivitas tim.</p>
-            </div>
-            <a href="{{ url('/galeri') }}" class="btn btn-outline-primary btn-sm text-nowrap rounded-3 fw-semibold">Lihat Semua <i class="bi bi-arrow-right"></i></a>
-        </div>
-
-        <div class="row">
-            @forelse($galeris ?? [] as $galeri)
-            <div class="col-md-3 mb-4">
-                <a href="{{ route('galeri.show', $galeri->id) }}" class="text-decoration-none">
-                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
-                        @if($galeri->image)
-                            <img src="{{ filter_var($galeri->image, FILTER_VALIDATE_URL) ? $galeri->image : asset('storage/' . $galeri->image) }}" class="card-img-top" alt="{{ $galeri->title }}" style="height: 160px; object-fit: cover;">
-                        @else
-                            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 160px;">
-                                <i class="bi bi-camera fs-1"></i>
-                            </div>
-                        @endif
-                        <div class="card-body p-3 text-center">
-                            @if(isset($galeri->category) || isset($galeri->kategori))
-                                <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded mb-2 d-inline-block" style="font-size: 0.7rem;">
-                                    {{ $galeri->category ?? $galeri->kategori }}
-                                </span>
-                            @endif
-                            <small class="text-muted d-block mb-1" style="font-size: 0.75rem;">
-                                <i class="bi bi-clock me-1"></i> {{ $galeri->created_at->format('d M Y') }}
-                            </small>
-                            <h6 class="fw-semibold text-dark mb-0 text-truncate">{{ $galeri->title }}</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            @empty
-            @for($i = 1; $i <= 4; $i++)
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 shadow-sm border-0 bg-white rounded-3 overflow-hidden">
-                    <div class="d-flex align-items-center justify-content-center text-muted border-bottom bg-light" style="height: 160px;">
-                        <i class="bi bi-camera-fill fs-2"></i>
-                    </div>
-                    <div class="card-body text-center py-3">
-                        <span class="badge bg-secondary mb-1" style="font-size: 0.65rem;">Album</span>
-                        <small class="text-muted d-block">Dokumentasi Kegiatan #{{ $i }}</small>
-                    </div>
-                </div>
-            </div>
-            @endfor
-            @endforelse
-        </div>
-    </div>
-</section>
-
-<!-- 7. ARTIKEL TERKINI -->
+<!-- 6. Artikel -->
 <section class="py-5 bg-white border-top">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -312,7 +256,7 @@
                             </div>
                         @endif
                         <small class="text-muted mb-2" style="font-size: 0.75rem;">
-                            <i class="bi bi-calendar3 me-1"></i> {{ $artikel->created_at->format('d M Y') }}
+                            <i class="bi bi-calendar3 me-1"></i> {{ \Carbon\Carbon::parse($artikel->tanggal_upload ?? $artikel->created_at)->format('d M Y') }}
                         </small>
                         <h5 class="card-title fw-bold fs-6 text-dark mb-2">{{ Str::limit($artikel->title, 45) }}</h5>
                         <p class="card-text text-muted small flex-grow-1 mb-0">{{ Str::limit($artikel->content ?? $artikel->description ?? '', 70) }}</p>
@@ -327,6 +271,62 @@
                         <span class="badge bg-secondary mb-2" style="font-size: 0.7rem;">Berita</span>
                         <h6 class="fw-bold text-dark fs-6">Judul Artikel Terkini #{{ $i }}</h6>
                         <p class="text-muted small mb-0">Informasi seputar perkembangan teknologi jaringan dan tips bisnis akan muncul di sini.</p>
+                    </div>
+                </div>
+            </div>
+            @endfor
+            @endforelse
+        </div>
+    </div>
+</section>
+
+<!-- 7. GALERI KEGIATAN -->
+<section class="py-5 bg-light border-top">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold m-0">Galeri Kegiatan</h3>
+                <p class="text-muted small mb-0">Dokumentasi operasional, pengerjaan instalasi, dan aktivitas tim.</p>
+            </div>
+            <a href="{{ url('/galeri') }}" class="btn btn-outline-primary btn-sm text-nowrap rounded-3 fw-semibold">Lihat Semua <i class="bi bi-arrow-right"></i></a>
+        </div>
+
+        <div class="row">
+            @forelse($galeris ?? [] as $galeri)
+            <div class="col-md-3 mb-4">
+                <a href="{{ url('/galeri/' . $galeri->id) }}" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                        @if($galeri->image)
+                            <img src="{{ filter_var($galeri->image, FILTER_VALIDATE_URL) ? $galeri->image : asset('storage/' . $galeri->image) }}" class="card-img-top" alt="{{ $galeri->title }}" style="height: 160px; object-fit: cover;">
+                        @else
+                            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 160px;">
+                                <i class="bi bi-camera fs-1"></i>
+                            </div>
+                        @endif
+                        <div class="card-body p-3 text-center">
+                            @if(isset($galeri->category) || isset($galeri->kategori))
+                                <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded mb-2 d-inline-block" style="font-size: 0.7rem;">
+                                    {{ $galeri->category ?? $galeri->kategori }}
+                                </span>
+                            @endif
+                            <small class="text-muted d-block mb-1" style="font-size: 0.75rem;">
+                                <i class="bi bi-clock me-1"></i> {{ \Carbon\Carbon::parse($galeri->tanggal ?? $galeri->created_at)->format('d M Y') }}
+                            </small>
+                            <h6 class="fw-semibold text-dark mb-0 text-truncate">{{ $galeri->title }}</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @empty
+            @for($i = 1; $i <= 4; $i++)
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm border-0 bg-white rounded-3 overflow-hidden">
+                    <div class="d-flex align-items-center justify-content-center text-muted border-bottom bg-light" style="height: 160px;">
+                        <i class="bi bi-camera-fill fs-2"></i>
+                    </div>
+                    <div class="card-body text-center py-3">
+                        <span class="badge bg-secondary mb-1" style="font-size: 0.65rem;">Album</span>
+                        <small class="text-muted d-block">Dokumentasi Kegiatan #{{ $i }}</small>
                     </div>
                 </div>
             </div>
@@ -353,12 +353,12 @@
             </div>
             <div class="col-6 col-md-2">
                 <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
-                    <img src="{{ asset('images/logo_klien_a.jpg') }}" alt="Logo Klien C" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                    <img src="{{ asset('images/logo_klien_c.jpg') }}" alt="Logo Klien C" class="img-fluid" style="max-height: 40px; object-fit: contain;">
                 </div>
             </div>
             <div class="col-6 col-md-2">
                 <div class="p-3 bg-white rounded-3 shadow-sm border d-flex align-items-center justify-content-center" style="height: 80px;">
-                    <img src="{{ asset('images/logo_klien_a.jpg') }}" alt="Logo Klien D" class="img-fluid" style="max-height: 40px; object-fit: contain;">
+                    <img src="{{ asset('images/logo_klien_d.jpg') }}" alt="Logo Klien D" class="img-fluid" style="max-height: 40px; object-fit: contain;">
                 </div>
             </div>
         </div>

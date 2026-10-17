@@ -27,14 +27,15 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom sticky-top shadow-sm py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold text-white fs-5 d-flex align-items-center" href="{{ url('/') }}">
-                 <img src="{{ asset('images/logo.jpg') }}" alt="Logo PT Solusi Koneksi Anda" class="me-2" style="height: 35px; width: auto; object-fit: contain;">
+            <!-- Logo sekarang mengarah langsung ke halaman login -->
+            <a class="navbar-brand fw-bold text-white fs-5 d-flex align-items-center" href="{{ route('login') }}" title="Klik untuk Login Admin">
+                <img src="{{ asset('images/logo.jpg') }}" alt="Logo PT Solusi Koneksi Anda" class="me-2" style="height: 35px; width: auto; object-fit: contain;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-lg-auto gap-2 align-items-lg-center">
+                <ul class="navbar-nav ms-auto gap-2 align-items-lg-center">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}">Beranda</a>
                     </li>
@@ -54,9 +55,6 @@
                         <a class="nav-link {{ request()->is('kontak*') ? 'active' : '' }}" href="{{ url('/kontak') }}">Kontak</a>
                     </li>
                 </ul>
-                <a class="btn btn-outline-light btn-sm mt-1" href="{{ route('login') }}">
-                    Masuk
-                </a>
             </div>
         </div>
     </nav>
@@ -70,7 +68,6 @@
     <footer class="bg-primary-custom text-white text-center py-4">
         <div class="container">
             <p class="mb-1">&copy; 2026 PT Solusi Koneksi Anda. All rights reserved.</p>
-            <small class="text-white-50">Didukung oleh PT Edukasi4id • Jl. Raya Pajajaran No. 88 F Kota Bogor</small>
         </div>
     </footer>
 
