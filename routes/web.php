@@ -12,6 +12,8 @@ use App\Http\Controllers\KontakController;
 
 // Controller Admin
 use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminProfileController;
+use App\Http\Controllers\Admin\AdminStrukturController;
 use App\Http\Controllers\Admin\AdminProdukController;
 use App\Http\Controllers\Admin\AdminGaleriController;
 use App\Http\Controllers\Admin\AdminArtikelController;
@@ -19,7 +21,7 @@ use App\Http\Controllers\Admin\AdminKontakController;
 
 // ================= Halaman Frontend Pengunjung =================
 Route::get('/', [BerandaController::class, 'index']);
-Route::get('/profil', [ProfilPerusahaanController::class, 'index']);
+Route::get('/profil', [ProfilPerusahaanController::class, 'index'])->name('profil');
 Route::get('/produk', [ProdukController::class, 'index'])->name('public.produk.index');
 Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('public.produk.show');
 Route::get('/artikel', [ArtikelController::class, 'index']);
@@ -43,6 +45,12 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('/profil/edit', [AdminAuthController::class, 'editProfile'])->name('admin.profil.edit');
     Route::put('/profil/update', [AdminAuthController::class, 'updateProfile'])->name('admin.profil.update');
+
+    Route::get('/profil_perusahaan', [AdminProfileController::class, 'index'])->name('profil_perusahaan.index');
+    Route::get('/profil_perusahaan/edit', [AdminProfileController::class, 'edit'])->name('profil_perusahaan.edit');
+    Route::put('/profil_perusahaan', [AdminProfileController::class, 'update'])->name('profil_perusahaan.update');
+
+    Route::resource('struktur', AdminStrukturController::class)->names('struktur');
     
     // Resource CRUD Admin Produk (URL: /admin/produk)
     Route::resource('produk', AdminProdukController::class)->parameters([

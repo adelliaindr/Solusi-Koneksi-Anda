@@ -11,10 +11,11 @@ class BerandaController extends Controller
 {
     public function index()
     {
+        $profile = \App\Models\Profile::first();
         $produks = Produk::latest()->take(4)->get();
         $artikels = Artikel::latest()->take(4)->get();
         $galeris = Galeri::latest()->take(4)->get();
 
-        return view('beranda', compact('produks', 'artikels', 'galeris'));
+        return view('beranda', compact('profile','produks', 'artikels', 'galeris'));
     }
 }

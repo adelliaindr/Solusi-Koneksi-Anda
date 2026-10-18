@@ -48,9 +48,8 @@
 
     <div class="mb-4">
         <span class="text-muted small d-block mb-2">Isi Pesan:</span>
-        <div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line; line-height: 1.7; font-size: 1.05rem;">
-            {{ $kontak->message ?? $kontak->pesan }}
-        </div>
+        <!-- Tambahkan word-break: break-word; di sini -->
+        <div class="p-3 bg-light rounded-3 text-secondary" style="white-space: pre-line; word-break: break-word; line-height: 1.7; font-size: 1.05rem;">{{ $kontak->message ?? $kontak->pesan }}</div>
     </div>
 
     <div class="d-flex justify-content-between align-items-center">

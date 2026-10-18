@@ -8,11 +8,19 @@
 
     $aktif = $normalisasi(request('kategori', ''));
 
+    // Tab kategori: nilai filter => label tampil
     $tabs = [
-        'berita'        => ['Berita'],
-        'teknologi'     => ['Teknologi'],
-        'tips dan trik' => ['Tips & Trik'],
-        'pengumuman'    => ['Pengumuman'],
+        'berita'        => 'Berita',
+        'teknologi'     => 'Teknologi',
+        'tips dan trik' => 'Tips & Trik',
+        'pengumuman'    => 'Pengumuman',
+    ];
+
+    // Warna badge per kategori
+    $badgeMap = [
+        'teknologi'     => 'bg-primary bg-opacity-10 text-primary',
+        'tips dan trik' => 'bg-success bg-opacity-10 text-success',
+        'pengumuman'    => 'bg-warning bg-opacity-10 text-dark',
     ];
 
     $daftar = collect($artikels ?? []);
@@ -22,10 +30,15 @@
     }
 @endphp
 
+<style>
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0, 0, 0, .1) !important; }
+</style>
+
 <!-- HERO SECTION -->
 <section
     class="text-white text-center d-flex align-items-center justify-content-center"
-    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 79vh;">
+    style="background: linear-gradient(rgba(10, 54, 99, 0.8), rgba(10, 54, 99, 0.8)), url('{{ asset('images/gedung-kantor.jpg') }}') center center / cover no-repeat; min-height: 50vh;">
 
     <div class="container py-5">
         <nav aria-label="breadcrumb" class="d-flex justify-content-center">
@@ -46,23 +59,20 @@
     </div>
 </section>
 
-<!-- TOP NAVIGATION BAR / FILTER KATEGORI ARTIKEL -->
-<section class="bg-white border-bottom py-3 shadow-sm sticky-top" style="top: 78px; z-index: 1019;">
+<!-- FILTER KATEGORI ARTIKEL -->
+<section class="bg-white border-bottom py-3 shadow-sm">
     <div class="container">
-        <ul class="nav nav-pills justify-content-center flex-nowrap overflow-auto gap-2 py-1">
+        <!-- justify-content-lg-center: di HP rata kiri agar semua tab bisa digeser/dijangkau -->
+        <ul class="nav nav-pills justify-content-lg-center flex-nowrap overflow-auto gap-2 py-1">
             <li class="nav-item">
-                <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === '' ? 'active bg-primary' : 'text-dark border' }}"
-                   href="{{ url('/artikel') }}">
-                    <i class="bi me-1"></i> Semua
-                </a>
+                <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === '' ? 'active' : 'text-dark border' }}"
+                   href="{{ url('/artikel') }}">Semua</a>
             </li>
 
-            @foreach($tabs as $key => [$label])
+            @foreach($tabs as $key => $label)
                 <li class="nav-item">
-                    <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === $key ? 'active bg-primary' : 'text-dark border' }}"
-                       href="{{ url('/artikel') }}?{{ http_build_query(['kategori' => $key]) }}">
-                       {{ $label }}
-                    </a>
+                    <a class="nav-link rounded-pill px-4 fw-semibold text-nowrap {{ $aktif === $key ? 'active' : 'text-dark border' }}"
+                       href="{{ url('/artikel') . '?' . http_build_query(['kategori' => $key]) }}">{{ $label }}</a>
                 </li>
             @endforeach
         </ul>
@@ -72,10 +82,15 @@
 <!-- KONTEN ARTIKEL & BERITA -->
 <section class="py-5 bg-light">
     <div class="container">
-        <div class="row">
+        <div class="row g-3 g-lg-4">
             @forelse($daftar as $item)
-            <div class="col-md-4 mb-4">
-                <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden d-flex flex-column">
+            @php
+                $labelKat   = $item->kategori ?? $item->category ?? 'Berita';
+                $badgeClass = $badgeMap[$normalisasi($labelKat)] ?? 'bg-secondary bg-opacity-10 text-secondary';
+                $tanggal    = \Carbon\Carbon::parse($item->tanggal_upload ?? $item->created_at ?? now())->format('d M Y');
+            @endphp
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card card-hover h-100 shadow-sm border-0 rounded-4 overflow-hidden d-flex flex-column">
                     <!-- Gambar Artikel -->
                     @if($item->image)
                         <img src="{{ filter_var($item->image, FILTER_VALIDATE_URL) ? $item->image : asset('storage/' . $item->image) }}"
@@ -88,22 +103,13 @@
 
                     <div class="card-body d-flex flex-column p-4">
                         <!-- Baris Kategori & Tanggal Rilis -->
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            @php
-                                $kat = $normalisasi($item->kategori ?? 'berita');
-                                $badgeClass = match($kat) {
-                                    'teknologi'     => 'bg-primary bg-opacity-10 text-primary',
-                                    'tips dan trik' => 'bg-success bg-opacity-10 text-success',
-                                    'pengumuman'    => 'bg-warning bg-opacity-10 text-dark',
-                                    default         => 'bg-secondary bg-opacity-10 text-secondary'
-                                };
-                            @endphp
-                            <span class="badge {{ $badgeClass }} px-2 py-1 rounded text-capitalize" style="font-size: 0.75rem;">
-                                {{ $item->category ?? $item->kategori ?? 'Berita' }}
+                        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+                            <span class="badge {{ $badgeClass }} px-2 py-1 rounded text-capitalize">
+                                {{ $labelKat }}
                             </span>
 
                             <div class="text-muted small">
-                                <i class="bi bi-calendar3 me-1"></i> {{ ($item->tanggal_upload ?? $item->created_at ?? now())->format('d M Y') }}
+                                <i class="bi bi-calendar3 me-1"></i> {{ $tanggal }}
                             </div>
                         </div>
 
@@ -116,7 +122,7 @@
                         </p>
 
                         <!-- Tombol Baca Selengkapnya -->
-                        <div class="mt-3 pt-2 border-top">
+                        <div class="mt-3 pt-3 border-top">
                             <a href="{{ url('/artikel/' . $item->id) }}" class="btn btn-primary btn-sm w-100 rounded-3">
                                 Baca Selengkapnya <i class="bi bi-arrow-right ms-1"></i>
                             </a>
@@ -126,11 +132,11 @@
             </div>
             @empty
             <!-- Placeholder jika belum ada artikel -->
-            <div class="col-12 text-center py-5">
-                <div class="p-5 bg-white rounded-4 shadow-sm border border-0">
-                    <i class="bi bi-journal-x display-1 text-muted mb-3"></i>
+            <div class="col-12 text-center">
+                <div class="p-4 p-md-5 bg-white rounded-4 shadow-sm border">
+                    <i class="bi bi-journal-x display-1 text-muted mb-3 d-block"></i>
                     <h4 class="fw-bold text-dark">Belum Ada Artikel</h4>
-                    <p class="text-muted col-lg-6 mx-auto mb-4">
+                    <p class="text-muted col-lg-6 mx-auto mb-0">
                         @if($aktif !== '')
                             Belum ada artikel yang diterbitkan untuk kategori <strong>"{{ ucfirst($aktif) }}"</strong>.
                         @else
