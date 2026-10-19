@@ -6,7 +6,9 @@
     $namaPerusahaan = $profile->nama_perusahaan ?? 'PT Solusi Koneksi Anda';
 
     // Nomor WhatsApp cukup diubah di sini (dipakai di hero & banner bawah)
-    $linkWa = 'https://wa.me/6289516430243';
+    $noWhatsApp = '6289516430243';
+    $pesanWa = "Halo Admin,\nSaya berminat dengan layanan di website.\nApakah ada info lebih lanjut?";
+    $urlWhatsApp = "https://wa.me/{$noWhatsApp}?text=" . urlencode($pesanWa);
 
     // Pecah misi per baris supaya tampil sebagai daftar poin
     $misiList = collect(preg_split('/\r\n|\r|\n/', $profile->misi ?? ''))
@@ -54,7 +56,7 @@
             <a href="{{ url('/profil') }}" class="btn btn-primary btn-lg px-4 shadow rounded-3 fw-semibold">
                 Pelajari Lebih Lanjut
             </a>
-            <a href="{{ $linkWa }}" target="_blank" rel="noopener" class="btn btn-outline-light btn-lg px-4 rounded-3 fw-semibold">
+            <a href="{{ $urlWhatsApp }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-light btn-lg px-4 rounded-3 fw-semibold">
                 <i class="bi bi-whatsapp me-2"></i>Konsultasi Gratis
             </a>
         </div>
@@ -295,7 +297,7 @@
     <div class="container py-3">
         <h3 class="fw-bold mb-3">Siap Mengembangkan Jaringan Bisnis Anda?</h3>
         <p class="lead col-lg-8 mx-auto mb-4">Konsultasikan kebutuhan infrastruktur telekomunikasi dan jaringan perusahaan Anda dengan tim konsultan ahli kami sekarang.</p>
-        <a href="{{ $linkWa }}" target="_blank" rel="noopener" class="btn btn-light text-primary btn-lg px-4 rounded-3 fw-bold shadow">
+        <a href="{{ $urlWhatsApp }}"  target="_blank" rel="noopener" class="btn btn-light text-primary btn-lg px-4 rounded-3 fw-bold shadow">
             <i class="bi bi-whatsapp me-2"></i> Hubungi Tim Sales Via WhatsApp
         </a>
     </div>
