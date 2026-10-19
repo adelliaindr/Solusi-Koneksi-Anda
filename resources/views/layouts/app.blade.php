@@ -69,7 +69,7 @@
     <!-- Footer -->
     <footer class="bg-primary-custom text-white text-center py-4 mt-auto">
         <div class="container">
-            <p class="mb-1">&copy; 2026 PT Solusi Koneksi Anda. All rights reserved.</p>
+            <p class="mb-1">&copy; 2026 PT Solusi Koneksi Anda. Dibuat Oleh PT Edukasi4id.</p>
         </div>
     </footer>
 
